@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>i4</title>
+	<script >
+		msg1="";
+		msg2="";
+		msg3="";
+	</script>
+	<script src="blockly/blockly_compressed.js"></script>
+	<script src="blockly/blocks_compressed.js"></script>
+	<script src="blockly/javascript_compressed.js"></script> 
+	<script src="blockly/msg/js/en.js"></script>
+	<script src="custom_blocks.js" ></script>
+	<script src="custom_generator1.js"></script>
+
+
+	<xml id="toolbox" src="toolbox.xml" style="display: none">
+		<block type="controls_if"></block>
+		<block type="A1"></block> 
+		<block type="string_length"></block>
+		<block type="A2"></block>
+		<block type="wait"></block>
+		<block type="value"></block>
+		<block type="logic"></block>
+		<block type="if_do"></block>
+		<block type="logic_compare"></block> 
+		
+	</xml>
+
+</head>
+<body>
+	<div id="blocklyDiv" style="height:380px;width:700px;"></div>
+	<p id="codehere"> GET CODE HERE</p>
+	<p id="finalcode">FINAL CODE</p>
+</body>
+
+<script>
+	 
+	  var workspace = Blockly.inject('blocklyDiv',
+      {toolbox: document.getElementById('toolbox')});
+
+		function printIt()
+		{
+			finalcode.innerHTML="o{"+msg1+" "+msg2+msg3;
+			
+		}
+</script>
+	<script>
+
+		function myUpdateFunction(event)
+		{
+			var code=Blockly.JavaScript.workspaceToCode(workspace);
+			codehere.innerHTML=code;
+
+
+		}
+		workspace.addChangeListener(myUpdateFunction);
+	</script>
+
+</html>

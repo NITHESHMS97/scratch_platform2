@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>i3</title>
+	<script src="blockly/blockly_compressed.js"></script>
+	<script src="blockly/blocks_compressed.js"></script>
+	<script src="blockly/javascript_compressed.js"></script>
+	<script src="blockly/msg/js/en.js"></script>
+
+	<xml id="toolbox" style="display:none">
+		<block type="controls_if"></block>
+		  <block type="controls_repeat_ext"></block>
+		  <block type="logic_compare"></block>
+		  <block type="math_number"></block>
+		  <block type="math_arithmetic"></block>
+		  <block type="text"></block>
+		  <block type="text_print"></block>
+		<block type="controls_if"></block>
+		<block type="printf"></block>
+		<block type="string_length"></block>
+	</xml>
+<!-- define the custom block--->
+	<script>
+		Blockly.Blocks['string_length']=
+		{
+			init:function()
+			{
+				this.jsonInit
+				(
+				{
+					"message0":"length of %1",
+					"args0":
+					[
+						{
+							"type":"input_value",
+							"name":"VALUE",
+							"check":"String"
+						}
+					],
+					"output":"Number",
+					"colour":160
+
+				});
+
+			}
+		};
+
+		Blockly.Blocks['printf']={
+			init:function()
+			{
+				this.jsonInit(
+				{
+					"message0":"printf %1",
+					"args0":
+					[
+						{
+							"type":"input_value",
+							"name":"TEXT"
+						}
+					],
+					"colour":160,
+
+				})
+			}
+		}
+	</script>
+	<script>
+		Blockly.JavaScript['string_length'] = function(block) {
+  // String or array length.
+  var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
+      Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
+  return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
+};
+	</script>
+</head>
+<body>
+	<div id="blocklyDiv" style="height:480px; width:600px;"></div>
+	<p id="codehere">hello</p>
+</body>
+
+<script>
+	var workspace=Blockly.inject('blocklyDiv',
+	{
+		toolbox:document.getElementById('toolbox')
+	});
+	function myUpdateFunction(event)
+	{
+  		var code = Blockly.JavaScript.workspaceToCode(workspace);
+  		codehere.innerHTML = code;
+	}
+	workspace.addChangeListener(myUpdateFunction);
+</script>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>scratch</title>
+	<script src="blockly_compressed.js"></script>
+	<script src="blocks_compressed.js"></script>
+	<script src="javascript_compressed.js"></script>
+	<script src="msg/js/en.js"></script>
+	
+<!--- xml block -------------------------------------------------------------->
+	<xml id="toolbox" style="display: none">
+	  <block type="controls_if"></block>
+	  <block type="controls_repeat_ext"></block>
+	  <block type="logic_compare"></block>
+	  <block type="math_number"></block>
+	  <block type="math_arithmetic"></block>
+	  <block type="text"></block>
+	  <block type="text_print"></block>
+	  <block type="string_length"></block>
+	</xml>
+
+<!-- defining custom blocks ----------------------------------------------------->
+
+<!--	<script type="text/javascript">
+		Blockly.Blocks['string_length']={
+			init:function()
+			{
+				this.setColour(160);
+//				this.setNextStatement(true);
+//				this.setPreviousStatement(true);
+				this.setOutput(true,'Number');
+			}
+		}
+	</script> -->
+	<script>
+		Blockly.Blocks['string_length'] = {
+  init: function() {
+    this.jsonInit
+    (
+    	{
+    		"type":"string_length",
+    		"message0":"length of %1",
+    		"args0":
+    		[
+    			{
+    				"type":"field_input",
+    				"name":"VALUE",
+    				"variable":"item"
+
+    			}
+    		],
+
+			"colour":160
+
+    	}	
+    );
+  }
+	};	
+	</script>
+
+<!--- custom code genrator ----------------------------------------------------------------------->
+
+
+<!--end of head ---------------------------------------------------------------------------------->
+</head>
+
+
+<body>
+
+	<script type="text/javascript">
+		Blockly.JavaScript['string_length']=function(block)
+		{
+			var x=block.getFieldValue('VALUE')
+			return x;
+		};
+	</script>
+
+	<div id="blocklyDiv" style="height: 480px; width: 600px;float:left; "></div>
+	<div style="float: left;">
+		<p id="textarea">asdasds</p>
+	</div>
+
+
+
+	<script>
+		var workspace=Blockly.inject('blocklyDiv',
+		{
+			toolbox: document.getElementById('toolbox')
+		});
+
+	
+	
+//<!-- generating js code ------------------------------------------------------------------------------> 
+	
+	function myUpdateFunction(event)
+	{
+  		var code = Blockly.JavaScript.workspaceToCode(workspace);
+  		textarea.innerHTML = code;
+	}
+	workspace.addChangeListener(myUpdateFunction);
+
+	</script>
+
+		
+
+
+</body>
+	
+</html>
