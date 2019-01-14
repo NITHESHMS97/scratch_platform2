@@ -172,7 +172,7 @@ Blockly.Blocks['if_do'] = {
 Blockly.Blocks['logic_compare'] = {
   init: function() {
     this.jsonInit({
-      "message0": '%1 %2 %3',
+      "message0": '%1 %2 %3 %4',
       "args0": [
         {
           "type":"field_dropdown",
@@ -182,6 +182,16 @@ Blockly.Blocks['logic_compare'] = {
             ["A2","A2"],
             ["A3","A3"],
             ["A4","A4"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"DEV",
+          "options":[
+            ["LED","LED"],
+            ["beeper","beeper"],
+            ["laser","laser"],
+            ["motor","motor"]
           ]
         },
         {

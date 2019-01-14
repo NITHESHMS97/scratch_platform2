@@ -89,6 +89,7 @@ Blockly.JavaScript['wait']=function(blocks)
 }
 Blockly.JavaScript['if_do']=function(blocks)
 {
+	var code=""
 	var targetBlock=this.getInputTargetBlock('CONDITION');
 	if(targetBlock)
 	{
@@ -96,10 +97,36 @@ Blockly.JavaScript['if_do']=function(blocks)
 		if(target2)
 		{
 			var value=target2.getFieldValue('VAL');
-		}
-		var port=targetBlock.getFieldValue('PORT');
-		var operator=targetBlock.getFieldValue('OP');
-		alert(operator);
-	}
 
+			var port=targetBlock.getFieldValue('PORT');
+			var operator=targetBlock.getFieldValue('OP');
+			if(value=='HIGH')
+			{
+				firstbyte='0',
+				lastbyte='1'
+			}	
+			else if(value=='LOW')
+			{
+				firstbyte='0',
+				lastbyte='1'
+			}
+			else
+			{
+				first16=parseInt(value) & 65280;
+				last16=parseInt(value) & 255;
+				first16=first16>>8;
+//			alert(typeof last16)
+
+				var firstbyte=first16.toString();
+				var lastbyte=last16.toString();	
+			}	
+			
+//			alert(firstbyte)
+			var code="00 "+port+firstbyte+lastbyte+operator
+//			alert(code)
+		}
+
+	}
+	
+	return code
 }
