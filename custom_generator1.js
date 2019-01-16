@@ -209,20 +209,54 @@ Blockly.JavaScript['if_do']=function(blocks)
 	return code;
 }
 */
+
 Blockly.JavaScript['if_do']=function(blocks)
 {
+	var code="";	
+	var conditionBlock=this.getInputTargetBlock('CONDITION') ;
 	
-	
+	if(conditionBlock)
+	{
+		var value1;
+		var value2;
+		var port=conditionBlock.getFieldValue('PORT');
+		var operator=conditionBlock.getFieldValue('OP');
+		
+//		conditionBlock.getField("VAL2").setVisible(false);
+		var value1=conditionBlock.getFieldValue("VAL1");
+		var value2=0;
+		if(operator=="<>")
+		{
+			value2=conditionBlock.getFieldValue("VAL2");
+			if(value2<value1)
+			{
+				conditionBlock.getField("VAL2").setValue(value1);
+			}
+		}
+		var value1byte=generateByteformat(value1);
+		var value2byte=generateByteformat(value2);
+//		alert(value2byte)
+		code="d"
+		code+=value2byte+port+value1byte+operator
+	}
+	var children=blocks.getChildren()
+	if(children[0])
+	{	ha=Blockly.JavaScript.blockToCode(children[0])
+		
+	}
+	return code+ha;
 }
+
 Blockly.JavaScript['repeat']=function(blocks)
 {
+	code="r";
 	var countBlock=this.getInputTargetBlock('COUNT');
-	var count=0
+	var count=0;
 	if(countBlock)
 		count=countBlock.getFieldValue('VAL');
 	var children=blocks.getChildren()
-	code="";
 	if(children[0])
-		code=Blockly.JavaScript.blockToCode(children[0])	
-	return "r"+code;	
+		child=Blockly.JavaScript.blockToCode(children[0])	
+	
+	return "r"+child+" "+count.toString();	
 }

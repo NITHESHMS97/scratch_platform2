@@ -172,7 +172,7 @@ Blockly.Blocks['if_do'] = {
 Blockly.Blocks['logic_compare'] = {
   init: function() {
     this.jsonInit({
-      "message0": '%1 %2 %3 %4',
+      "message0": '%1 %2 %3 %4 %5',
       "args0": [
         {
           "type":"field_dropdown",
@@ -198,18 +198,26 @@ Blockly.Blocks['logic_compare'] = {
           "type":"field_dropdown",
           "name":"OP",
           "options":[
+            ["<>","<>"],
             ["=","="],
             [">",">"],
             ["<","<"],
-            ["!=","!="],
-            ["<>","<>"]
+            ["!=","!="]
+            
           ]
         },
         {
-          "type":"input_value",
-          "name":"VAL"
+          "type":"field_number",
+          "name":"VAL1"
+        },
+        {
+          "type":"field_number",
+          "name":"VAL2",
+          "visible_":true
         }
+
       ],
+
       "inputsInline":true,
       "output":"String",
       "colour": 160
@@ -217,46 +225,6 @@ Blockly.Blocks['logic_compare'] = {
   }
 };
 
-Blockly.Blocks['logic_between'] = {
-  init: function() {
-    this.jsonInit({
-      "message0": '%1 %2 <> %3 %4',
-      "args0": [
-        {
-          "type":"field_dropdown",
-          "name":"PORT",
-          "options":[
-            ["A1","A1"],
-            ["A2","A2"],
-            ["A3","A3"],
-            ["A4","A4"]
-          ]
-        },
-        {
-          "type":"field_dropdown",
-          "name":"DEV",
-          "options":[
-            ["LED","LED"],
-            ["beeper","beeper"],
-            ["laser","laser"],
-            ["motor","motor"]
-          ]
-        },
-        {
-          "type":"input_value",
-          "name":"VAL1"
-        },
-        {
-          "type":"input_value",
-          "name":"VAL2"
-        }
-      ],
-      "inputsInline":true,
-      "output":"String",
-      "colour": 160
-    });
-  }
-};
 
 Blockly.Blocks['repeat'] = {
   init: function() {
