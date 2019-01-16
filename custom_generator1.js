@@ -162,6 +162,7 @@ function generateByteformat(value)
 	}
 	return firstbyte+lastbyte;
 }
+/*
 Blockly.JavaScript['if_do']=function(blocks)
 {
 	var code="";	
@@ -206,4 +207,22 @@ Blockly.JavaScript['if_do']=function(blocks)
 		}
 	}
 	return code;
+}
+*/
+Blockly.JavaScript['if_do']=function(blocks)
+{
+	
+	
+}
+Blockly.JavaScript['repeat']=function(blocks)
+{
+	var countBlock=this.getInputTargetBlock('COUNT');
+	var count=0
+	if(countBlock)
+		count=countBlock.getFieldValue('VAL');
+	var children=blocks.getChildren()
+	code="";
+	if(children[0])
+		code=Blockly.JavaScript.blockToCode(children[0])	
+	return "r"+code;	
 }
