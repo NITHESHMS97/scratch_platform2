@@ -1,3 +1,4 @@
+
 Blockly.JavaScript['string_length'] = function(block) {
   // String or array length.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
@@ -87,10 +88,11 @@ Blockly.JavaScript['wait']=function(blocks)
 	return " w"+(hrsmili+minmili+secmili).toString();
 
 }
+/*
 Blockly.JavaScript['if_do']=function(blocks)
 {
 	var code=""
-	var targetBlock=this.getInputTargetBlock('CONDITION');
+	var targetBlock=this.getInputTargetBlock('CONDITION') ;
 	if(targetBlock)
 	{
 		target2=targetBlock.getInputTargetBlock('VAL');
@@ -120,13 +122,88 @@ Blockly.JavaScript['if_do']=function(blocks)
 				var firstbyte=first16.toString();
 				var lastbyte=last16.toString();	
 			}	
-			
-//			alert(firstbyte)
-			var code="00 "+port+firstbyte+lastbyte+operator
+			if(operator== "<>")
+			{
+				targetBlock.appendValueInput("VAL2")
+				alert("<><><><>")
+			}
+			var code="d00 "+port+firstbyte+lastbyte+operator
 //			alert(code)
 		}
-
+		
 	}
 	
 	return code
+}*/
+
+function generateByteformat(value)
+{
+	var firstbyte="";
+	var lastbyte="";
+	if(value=='HIGH')
+	{
+		firstbyte='0',
+		lastbyte='1'
+	}	
+	else if(value=='LOW')
+	{
+		firstbyte='0',
+		lastbyte='1'
+	}
+	else
+	{
+		first16=value & 65280;
+		last16=value & 255;
+		first16=first16>>8;
+//			alert(typeof last16)
+
+		firstbyte=first16.toString();
+		lastbyte=last16.toString();	
+	}
+	return firstbyte+lastbyte;
+}
+Blockly.JavaScript['if_do']=function(blocks)
+{
+	var code="";	
+	var conditionBlock=this.getInputTargetBlock('CONDITION') ;
+	
+	if(conditionBlock)
+	{
+		var value1;
+		var value2;
+		conditiontype=conditionBlock.type;
+		if(conditiontype=="logic_compare")
+		{
+			var port=conditionBlock.getFieldValue('PORT');
+			var operator=conditionBlock.getFieldValue('OP');
+			var value1Obj=conditionBlock.getInputTargetBlock('VAL');
+			value1=0;
+			if(value1Obj)
+				value1=value1Obj.getFieldValue('VAL');
+			value1byte=generateByteformat(value1);
+			code="d00"+port+value1byte;
+//			alert(code);
+		}
+		else if(conditiontype=="logic_between")
+		{
+
+			var port=conditionBlock.getFieldValue('PORT');
+			var operator=conditionBlock.getFieldValue('OP');
+			var value1Obj=conditionBlock.getInputTargetBlock('VAL1');
+			var value2Obj=conditionBlock.getInputTargetBlock('VAL2');
+			value1=0;
+			if(value1Obj)
+				value1=value1Obj.getFieldValue('VAL1');
+			value2=0;
+			if(value2Obj)
+				value2=value1Obj.getFieldValue('VAL2');
+		//	alert(typeof value2)
+			var value1byte=generateByteformat(value1);
+			var value2byte=generateByteformat(value2);
+			alert(value2byte)	
+			code="d"+value2byte+port+value1byte;
+//			alert(code);
+		}
+	}
+	return code;
 }

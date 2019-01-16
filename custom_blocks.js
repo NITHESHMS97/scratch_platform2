@@ -201,7 +201,8 @@ Blockly.Blocks['logic_compare'] = {
             ["=","="],
             [">",">"],
             ["<","<"],
-            ["!=","!="]
+            ["!=","!="],
+            ["<>","<>"]
           ]
         },
         {
@@ -211,6 +212,70 @@ Blockly.Blocks['logic_compare'] = {
       ],
       "inputsInline":true,
       "output":"String",
+      "colour": 160
+    });
+  }
+};
+
+Blockly.Blocks['logic_between'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": '%1 %2 <> %3 %4',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"PORT",
+          "options":[
+            ["A1","A1"],
+            ["A2","A2"],
+            ["A3","A3"],
+            ["A4","A4"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"DEV",
+          "options":[
+            ["LED","LED"],
+            ["beeper","beeper"],
+            ["laser","laser"],
+            ["motor","motor"]
+          ]
+        },
+        {
+          "type":"input_value",
+          "name":"VAL1"
+        },
+        {
+          "type":"input_value",
+          "name":"VAL2"
+        }
+      ],
+      "inputsInline":true,
+      "output":"String",
+      "colour": 160
+    });
+  }
+};
+
+Blockly.Blocks['repeat'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'repeat %1 times',
+      "args0": [
+        {
+          "type":"input_value",
+          "name":"COUNT",
+        },
+      ],
+      "message1":"do %1",
+      "args1":[
+      {
+        "type":"input_statement",
+        "name": "DO" 
+      }
+       
+      ],
       "colour": 160
     });
   }
