@@ -164,6 +164,8 @@ Blockly.Blocks['if_do'] = {
       }
        
       ],
+      "previousStatement":"Action",
+      "nextStatement":"Action",
       "colour": 160
     });
   }
@@ -244,7 +246,22 @@ Blockly.Blocks['repeat'] = {
       }
        
       ],
+      "previousStatement":"Action",
+      "nextStatement":"Action",
       "colour": 160
+
     });
   }
 };
+
+Blockly.Blocks['start'] = {
+  init: function() {
+    this.jsonInit({
+      "message0":"START",
+      "colour": 0,
+      "nextStatement": "Action",
+      "START_HAT":true
+    });
+  }
+};
+Blockly.BlockSvg.START_HAT = true;

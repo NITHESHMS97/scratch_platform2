@@ -88,53 +88,7 @@ Blockly.JavaScript['wait']=function(blocks)
 	return " w"+(hrsmili+minmili+secmili).toString();
 
 }
-/*
-Blockly.JavaScript['if_do']=function(blocks)
-{
-	var code=""
-	var targetBlock=this.getInputTargetBlock('CONDITION') ;
-	if(targetBlock)
-	{
-		target2=targetBlock.getInputTargetBlock('VAL');
-		if(target2)
-		{
-			var value=target2.getFieldValue('VAL');
 
-			var port=targetBlock.getFieldValue('PORT');
-			var operator=targetBlock.getFieldValue('OP');
-			if(value=='HIGH')
-			{
-				firstbyte='0',
-				lastbyte='1'
-			}	
-			else if(value=='LOW')
-			{
-				firstbyte='0',
-				lastbyte='1'
-			}
-			else
-			{
-				first16=parseInt(value) & 65280;
-				last16=parseInt(value) & 255;
-				first16=first16>>8;
-//			alert(typeof last16)
-
-				var firstbyte=first16.toString();
-				var lastbyte=last16.toString();	
-			}	
-			if(operator== "<>")
-			{
-				targetBlock.appendValueInput("VAL2")
-				alert("<><><><>")
-			}
-			var code="d00 "+port+firstbyte+lastbyte+operator
-//			alert(code)
-		}
-		
-	}
-	
-	return code
-}*/
 
 function generateByteformat(value)
 {
@@ -162,59 +116,13 @@ function generateByteformat(value)
 	}
 	return firstbyte+lastbyte;
 }
-/*
-Blockly.JavaScript['if_do']=function(blocks)
-{
-	var code="";	
-	var conditionBlock=this.getInputTargetBlock('CONDITION') ;
-	
-	if(conditionBlock)
-	{
-		var value1;
-		var value2;
-		conditiontype=conditionBlock.type;
-		if(conditiontype=="logic_compare")
-		{
-			var port=conditionBlock.getFieldValue('PORT');
-			var operator=conditionBlock.getFieldValue('OP');
-			var value1Obj=conditionBlock.getInputTargetBlock('VAL');
-			value1=0;
-			if(value1Obj)
-				value1=value1Obj.getFieldValue('VAL');
-			value1byte=generateByteformat(value1);
-			code="d00"+port+value1byte;
-//			alert(code);
-		}
-		else if(conditiontype=="logic_between")
-		{
 
-			var port=conditionBlock.getFieldValue('PORT');
-			var operator=conditionBlock.getFieldValue('OP');
-			var value1Obj=conditionBlock.getInputTargetBlock('VAL1');
-			var value2Obj=conditionBlock.getInputTargetBlock('VAL2');
-			value1=0;
-			if(value1Obj)
-				value1=value1Obj.getFieldValue('VAL1');
-			value2=0;
-			if(value2Obj)
-				value2=value1Obj.getFieldValue('VAL2');
-		//	alert(typeof value2)
-			var value1byte=generateByteformat(value1);
-			var value2byte=generateByteformat(value2);
-			alert(value2byte)	
-			code="d"+value2byte+port+value1byte;
-//			alert(code);
-		}
-	}
-	return code;
-}
-*/
 
 Blockly.JavaScript['if_do']=function(blocks)
 {
 	var code="";	
 	var conditionBlock=this.getInputTargetBlock('CONDITION') ;
-	
+	var child="ifucan" 	
 	if(conditionBlock)
 	{
 		var value1;
@@ -238,25 +146,40 @@ Blockly.JavaScript['if_do']=function(blocks)
 //		alert(value2byte)
 		code="d"
 		code+=value2byte+port+value1byte+operator
+		var doBlock=this.getInputTargetBlock('DO') ;
+		var children=blocks.getChildren();
+		// alert(children)
+//		if(children[0])
+//			code+=Blockly.JavaScript.blockToCode(children[0])	
+	
+		if(children[0])
+			child=Blockly.JavaScript.blockToCode(children[0])
 	}
-	var children=blocks.getChildren()
-	if(children[0])
-	{	ha=Blockly.JavaScript.blockToCode(children[0])
-		
-	}
-	return code+ha;
+		return code;
+
 }
 
 Blockly.JavaScript['repeat']=function(blocks)
 {
-	code="r";
+	var code="r";
 	var countBlock=this.getInputTargetBlock('COUNT');
 	var count=0;
 	if(countBlock)
 		count=countBlock.getFieldValue('VAL');
-	var children=blocks.getChildren()
+	var children=blocks.getChildren();
+	var child="";
 	if(children[0])
-		child=Blockly.JavaScript.blockToCode(children[0])	
-	
-	return "r"+child+" "+count.toString();	
+		child=Blockly.JavaScript.blockToCode(children[0]);
+	code+=child;
+	code+=count.toString();
+	return code;
+}
+
+Blockly.JavaScript['start']=function(block)
+{
+	var code="";
+	var children=block.getChildren()
+	if(children[0])
+		child=Blockly.JavaScript.blockToCode(children[0]);
+	return child
 }
