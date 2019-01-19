@@ -120,9 +120,10 @@ function generateByteformat(value)
 
 Blockly.JavaScript['if_do']=function(blocks)
 {
+
 	var code="";	
 	var conditionBlock=this.getInputTargetBlock('CONDITION') ;
-	var child="ifucan" 	
+	var child="" 	
 	if(conditionBlock)
 	{
 		var value1;
@@ -144,14 +145,19 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var value1byte=generateByteformat(value1);
 		var value2byte=generateByteformat(value2);
 //		alert(value2byte)
+		
 		code="d";
 		code+=value2byte+port+value1byte+operator;
-		children=blocks.getChildren();
-		if(children[0])
-			child=Blockly.JavaScript.blockToCode(children[0]);
+		children=blocks.getChildren(false);
+		//if(children[0])
+		//	child += Blockly.JavaScript.blockToCode(children[0]);
 
+		if(children[1])
+			child += Blockly.JavaScript.blockToCode(children[1]);
+//			ifucan.innerHTML = children[1].type;
+//			= children[1].getNextBlock().type;
 	}	
-	return child;
+	return code+child;
 
 }
 Blockly.JavaScript['logic_compare']=function(blocks)
@@ -160,7 +166,7 @@ Blockly.JavaScript['logic_compare']=function(blocks)
 }
 Blockly.JavaScript['repeat']=function(blocks)
 {
-	var code="r";
+	var code="l";
 	var countBlock=this.getInputTargetBlock('COUNT');
 	var count=0;
 	if(countBlock)
@@ -169,9 +175,7 @@ Blockly.JavaScript['repeat']=function(blocks)
 	var child="";
 	if(children[0])
 		child=Blockly.JavaScript.blockToCode(children[0]);
-	code+=child;
-	code+=count.toString();
-	return code;
+	return code+count.toString()+child;
 }
 
 Blockly.JavaScript['start']=function(block)
@@ -179,6 +183,14 @@ Blockly.JavaScript['start']=function(block)
 	var code="";
 	var children=block.getChildren()
 	if(children[0])
+	{
+
+//		startgen.innerHTML=children[0].type;
+		x=children[0].type;
 		code=Blockly.JavaScript.blockToCode(children[0]);
-	return code;
+		startgen.innerHTML=code;
+		
+	}
+	return "";
 }
+
