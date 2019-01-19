@@ -144,21 +144,20 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var value1byte=generateByteformat(value1);
 		var value2byte=generateByteformat(value2);
 //		alert(value2byte)
-		code="d"
-		code+=value2byte+port+value1byte+operator
-		var doBlock=this.getInputTargetBlock('DO') ;
-		var children=blocks.getChildren();
-		// alert(children)
-//		if(children[0])
-//			code+=Blockly.JavaScript.blockToCode(children[0])	
-	
+		code="d";
+		code+=value2byte+port+value1byte+operator;
+		children=blocks.getChildren();
 		if(children[0])
-			child=Blockly.JavaScript.blockToCode(children[0])
-	}
-		return code;
+			child=Blockly.JavaScript.blockToCode(children[0]);
+
+	}	
+	return child;
 
 }
-
+Blockly.JavaScript['logic_compare']=function(blocks)
+{
+	return "log_compare_block";
+}
 Blockly.JavaScript['repeat']=function(blocks)
 {
 	var code="r";
@@ -180,6 +179,6 @@ Blockly.JavaScript['start']=function(block)
 	var code="";
 	var children=block.getChildren()
 	if(children[0])
-		child=Blockly.JavaScript.blockToCode(children[0]);
-	return child
+		code=Blockly.JavaScript.blockToCode(children[0]);
+	return code;
 }
