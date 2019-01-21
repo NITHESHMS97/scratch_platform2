@@ -1,3 +1,9 @@
+var ports=
+{
+	"A1":"1",
+	"A2":"2"
+}
+
 
 Blockly.JavaScript['string_length'] = function(block) {
   // String or array length.
@@ -17,7 +23,7 @@ Blockly.JavaScript['A1']=function(block)
 		this.getInput('VALUE').setCheck('String')
 	else	
 		this.getInput('VALUE').setCheck('Number')
-	var code="1,"
+	var code="A1,"
 	if(targetBlock)
 	{
 		var value=targetBlock.getFieldValue('VAL');
@@ -52,7 +58,7 @@ Blockly.JavaScript['A2']=function(block)
 		this.getInput('VALUE').setCheck('String')
 	else	
 		this.getInput('VALUE').setCheck('Number')
-	var code="2,"
+	var code="A2,"
 	if(targetBlock)
 	{
 		var value=targetBlock.getFieldValue('VAL');
@@ -193,7 +199,27 @@ Blockly.JavaScript['repeat']=function(blocks)
 	repeatf.innerHTML=children[0].type;
 	return code+","+count.toString()+","+child;
 }
-
+function createOutputCode(code)
+{
+	var index=0;
+	var output=new Array();
+	var codelist=new Array();
+	codelist=code.split(",");
+	portlist=Object.keys(ports);
+//	console.log(portlist);
+	var isopen=0;
+	for(var i=0;i<codelist.length;i++)
+	{
+		if(portlist.includes(codelist[i]))
+		{
+			if(isopen==0)
+				output.push("o","{");
+			output.push(ports[codelist[i]],codelist[i+1],codelist[i+2]);
+			i=i+3;
+		}	
+	}
+	console.log(output)
+}
 Blockly.JavaScript['start']=function(block)
 {
 	var code="";
@@ -205,7 +231,7 @@ Blockly.JavaScript['start']=function(block)
 		x=children[0].type;
 		code=Blockly.JavaScript.blockToCode(children[0]);
 		startgen.innerHTML=code;
-
+		createOutputCode(code)
 	}
 	return "";
 }
