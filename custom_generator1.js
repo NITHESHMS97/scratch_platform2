@@ -17,12 +17,12 @@ Blockly.JavaScript['A1']=function(block)
 {
 
 
-	var targetBlock=this.getInputTargetBlock('VALUE');
-	var a1Device= this.getFieldValue('CONNECT')
+	var targetBlock=block.getInputTargetBlock('VALUE');
+	var a1Device= block.getFieldValue('CONNECT')
 	if(a1Device=='LED')
-		this.getInput('VALUE').setCheck('String')
+		block.getInput('VALUE').setCheck('String')
 	else	
-		this.getInput('VALUE').setCheck('Number')
+		block.getInput('VALUE').setCheck('Number')
 	var code="A1,"
 	if(targetBlock)
 	{
@@ -52,12 +52,12 @@ Blockly.JavaScript['A2']=function(block)
 {
 
 
-	var targetBlock=this.getInputTargetBlock('VALUE');
-	var a2Device= this.getFieldValue('CONNECT')
+	var targetBlock=block.getInputTargetBlock('VALUE');
+	var a2Device= block.getFieldValue('CONNECT')
 	if(a2Device=='LED')
-		this.getInput('VALUE').setCheck('String')
+		block.getInput('VALUE').setCheck('String')
 	else	
-		this.getInput('VALUE').setCheck('Number')
+		block.getInput('VALUE').setCheck('Number')
 	var code="A2,"
 	if(targetBlock)
 	{
@@ -82,11 +82,11 @@ Blockly.JavaScript['A2']=function(block)
 	
 
 }
-Blockly.JavaScript['wait']=function(blocks)
+Blockly.JavaScript['wait']=function(block)
 {
-	var hrs=this.getFieldValue('HRS');
-	var min=this.getFieldValue('MIN');
-	var sec=this.getFieldValue('SEC');
+	var hrs=block.getFieldValue('HRS');
+	var min=block.getFieldValue('MIN');
+	var sec=block.getFieldValue('SEC');
 	var hrsmili=parseInt(hrs)*60*60*1000;
 	var minmili=parseInt(min)*60*1000;
 	var secmili=parseInt(sec)*1000;
@@ -137,8 +137,9 @@ Blockly.JavaScript['if_do']=function(blocks)
 {
 
 	var code="";	
-	var conditionBlock=this.getInputTargetBlock('CONDITION') ;
-	var child="" 	
+	var conditionBlock=blocks.getInputTargetBlock('CONDITION') ;
+	var child="";
+	var isOutputOpen=false; 	
 	if(conditionBlock)
 	{
 		var value1;
@@ -172,67 +173,121 @@ Blockly.JavaScript['if_do']=function(blocks)
 		//	child += Blockly.JavaScript.blockToCode(children[0]);
 
 		if(children[1])
-			child += Blockly.JavaScript.blockToCode(children[1]);
+		{
+			
+			//child += Blockly.JavaScript.blockToCode(children[1]);
+			var nextBlock=children[1];
+			while(nextBlock)
+			{
+//				console.log(nextBlock.type);
+				if(!isOutputOpen && nextBlock.type.includes('A'))
+				{
+					child+="o,{,";
+					isOutputOpen=true;
+				}	
+				else if(!nextBlock.type.includes('A'))
+				{
+					child+="},";
+					isOutputOpen=false;
+				}
+				child+=Blockly.JavaScript[nextBlock.type](nextBlock);
+
+				nextBlock=nextBlock.getNextBlock();
+			}
+			if(isOutputOpen){
+				isOutputOpen=false;
+				child+="},";
+			}
+//			console.log(code+child+"0ED");
+		}	
 //			ifucan.innerHTML = children[1].type;
 //			= children[1].getNextBlock().type;
 	}	
-	return code+child;
+	return code+child+"0ED,";
 
 }
-Blockly.JavaScript['logic_compare']=function(blocks)
+Blockly.JavaScript['logic_compare']=function(block)
 {
 	return "log_compare_block";
 }
-Blockly.JavaScript['repeat']=function(blocks)
+Blockly.JavaScript['repeat']=function(block)
 {
 	var code="l";
-	var countBlock=this.getInputTargetBlock('COUNT');
+	var countBlock=block.getInputTargetBlock('COUNT');
 	var count=0;
 	if(countBlock)
 		count=countBlock.getFieldValue('VAL');
 	
-	var children=blocks.getChildren();
+	var children=block.getChildren();
 	var child="";
-	if(children[0])
-		child=Blockly.JavaScript.blockToCode(children[0]);
+	var isOutputOpen = false;
+	if(children[0]) {
+		//child=Blockly.JavaScript.blockToCode(children[0]);
+		var nextBlock = children[0];
+		while(nextBlock){
+			//console.log(nextBlock.type);
+			if(nextBlock.type.includes('A') && !isOutputOpen){
+				child += "o,{,";
+				isOutputOpen = true;
+			}
+
+			else if(!nextBlock.type.includes('A')){
+
+					isOutputOpen = false;
+					child += "},";
+			}
+
+			child += Blockly.JavaScript[nextBlock.type](nextBlock);
+			nextBlock = nextBlock.getNextBlock(); 	
+		}
+		if(isOutputOpen) {
+			child += "},";
+			isOutputOpen = false;
+		}
+		
+	}
+	
 //	return code+","+count.toString()+","+child;
 	repeatf.innerHTML=children[0].type;
-	return code+","+count.toString()+","+child;
-}
-function createOutputCode(code)
-{
-	var index=0;
-	var output=new Array();
-	var codelist=new Array();
-	codelist=code.split(",");
-	portlist=Object.keys(ports);
-//	console.log(portlist);
-	var isopen=0;
-	for(var i=0;i<codelist.length;i++)
-	{
-		if(portlist.includes(codelist[i]))
-		{
-			if(isopen==0)
-				output.push("o","{");
-			output.push(ports[codelist[i]],codelist[i+1],codelist[i+2]);
-			i=i+3;
-		}	
-	}
-	console.log(output)
+//	console.log(code+","+count.toString()+","+child+"0ED,")
+	return code+",0,0,"+count.toString()+","+child+"0ED,";
+
 }
 Blockly.JavaScript['start']=function(block)
 {
 	var code="";
+	var isOutputOpen=false;
 	var children=block.getChildren()
+	var output=new Array();
+	output.push("R","T","5","1","1","R","S","T");
+
 	if(children[0])
 	{
-
-//		startgen.innerHTML=children[0].type;
-		x=children[0].type;
-		code=Blockly.JavaScript.blockToCode(children[0]);
-		startgen.innerHTML=code;
-		createOutputCode(code)
+		var nextBlock=children[0];
+		while(nextBlock)
+		{
+			if(nextBlock.type.includes('A') && !isOutputOpen)
+			{
+				code+="o,{,";
+				isOutputOpen=true;
+			}
+			else if(!nextBlock.type.includes('A') && isOutputOpen)
+			{
+				isOutputOpen=false;
+				code+="},";
+			}
+			code+=Blockly.JavaScript[nextBlock.type](nextBlock)
+			nextBlock=nextBlock.getNextBlock();
+		}
+		if(isOutputOpen)
+		{
+			code+="},";
+			isOutputOpen=false;
+		}
+		
 	}
-	return "";
+//	console.log(code)
+	output=code.split(",")
+	console.log(output)
+	return code;
 }
-
