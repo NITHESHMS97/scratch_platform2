@@ -241,5 +241,16 @@ portsDev={
 	{
 		"DC motor":"P",
 		"Geared motor":"P"
+	},
+	"M3":
+	{
+		"DC motor":"P",
+		"Geared motor":"P"
+	},
+	"M4":
+	{
+		"DC motor":"P",
+		"Geared motor":"P"
 	}
+
 }

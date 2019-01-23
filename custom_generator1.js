@@ -14,76 +14,6 @@ Blockly.JavaScript['string_length'] = function(block) {
   return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
 };
 
-
-Blockly.JavaScript['A1']=function(block)
-{
-
-
-	var targetBlock=block.getInputTargetBlock('VALUE');
-	var a1Device= block.getFieldValue('CONNECT')
-	if(a1Device=='LED')
-		block.getInput('VALUE').setCheck('String')
-	else	
-		block.getInput('VALUE').setCheck('Number')
-	var code="A1,"
-	if(targetBlock)
-	{
-		var value=targetBlock.getFieldValue('VAL');
-		if(value=='HIGH')
-			code+="0,1,";
-		else if(value=='LOW')
-			code+="0,0,";
-		else
-		{
-			first16=value & 65280;
-			last16=value & 255;
-			first16=first16>>8;
-			code+=first16.toString()+",";
-			code+=last16.toString()+",";
-		}
-		
-	}
-	msg1=code;
-	printIt();
-	return code;
-	
-
-}
-
-Blockly.JavaScript['A2']=function(block)
-{
-
-
-	var targetBlock=block.getInputTargetBlock('VALUE');
-	var a2Device= block.getFieldValue('CONNECT')
-	if(a2Device=='LED')
-		block.getInput('VALUE').setCheck('String')
-	else	
-		block.getInput('VALUE').setCheck('Number')
-	var code="A2,"
-	if(targetBlock)
-	{
-		var value=targetBlock.getFieldValue('VAL');
-		if(value=='HIGH')
-			code+="0,1,";
-		else if(value=='LOW')
-			code+="0,0,";
-		else
-		{
-			first16=value & 65280;
-			last16=value & 255;
-			first16=first16>>8;
-			code+=first16.toString()+",";
-			code+=last16.toString()+",";
-		}
-		
-	}
-	msg2=" "+code;
-	printIt();
-	return code;
-	
-
-}
 Blockly.JavaScript['wait']=function(block)
 {
 	var hrs=block.getFieldValue('HRS');
@@ -273,14 +203,14 @@ Blockly.JavaScript['start']=function(block)
 		var nextBlock=children[0];
 		while(nextBlock)
 		{
-			if( portskey.includes(nextBlock.type)/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			if( ports.includes(nextBlock.type)/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 			{
 				code+="o,{,";
 				device=nextBlock.getFieldValue('CONNECT')
 
 				isOutputOpen=true;
 			}
-			else if(!nextBlock.type.includes('A') && isOutputOpen)
+			else if(!ports.includes(nextBlock.type)/*!nextBlock.type.includes('A')*/ && isOutputOpen)
 			{
 				isOutputOpen=false;
 				code+="},";
