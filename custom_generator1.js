@@ -194,7 +194,7 @@ Blockly.JavaScript['start']=function(block)
 	var index=8;
 	portskey=Object.keys(ports);
 	output.push("R","T","5","1","1","S","E","T");
-	for (var i=0;i<24;i++)
+	for (var i=0;i<60;i++)
 	{
 		output.push("O");
 	}
@@ -216,7 +216,16 @@ Blockly.JavaScript['start']=function(block)
 				code+="},";
 			}
 			code+=Blockly.JavaScript[nextBlock.type](nextBlock)
+			if(ports.includes(nextBlock.type))
+			{			
+				var device=nextBlock.getFieldValue('CONNECT');
+				var port=nextBlock.type;
+				var type=portsDev[port][device];
+				output[8+ports.indexOf(port)]=type;
+			}
+			
 			nextBlock=nextBlock.getNextBlock();
+
 		}
 		if(isOutputOpen)
 		{

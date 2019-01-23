@@ -218,3 +218,16 @@ Blockly.Blocks['start'] = {
   }
 };
 Blockly.BlockSvg.START_HAT = true;
+/*
+Blockly.Blocks['end']={
+  init:function()
+  {
+    this.jsonInit(
+      {
+        "message0":"END ",
+
+      }
+    )
+  }
+}
+*/
