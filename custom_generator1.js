@@ -223,7 +223,10 @@ Blockly.JavaScript['start']=function(block)
 				var type=portsDev[port][device];
 				output[8+ports.indexOf(port)]=type;
 			}
-			
+			else if(nextBlock.type=="end")
+			{
+				break;
+			}
 			nextBlock=nextBlock.getNextBlock();
 
 		}
@@ -242,4 +245,16 @@ Blockly.JavaScript['start']=function(block)
 //	output.concat(temp);
 	console.log(output);
 	return code;
+}
+
+Blockly.JavaScript['end']=function(block)
+{
+	var endType=block.getFieldValue('TYPE');
+	var code="";
+	if(endType=="REPEAT")
+		code="RST";
+	else
+		code="END";
+	return code;
+
 }

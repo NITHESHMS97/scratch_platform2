@@ -218,16 +218,19 @@ Blockly.Blocks['start'] = {
   }
 };
 Blockly.BlockSvg.START_HAT = true;
-/*
-Blockly.Blocks['end']={
-  init:function()
-  {
-    this.jsonInit(
-      {
-        "message0":"END ",
 
-      }
-    )
+Blockly.Blocks['end'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'END %1',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"TYPE",
+          "options":[["REPEAT","REPEAT"],["END","END"]]
+        },
+      ],
+      "previousStatement":"Action"
+    });
   }
-}
-*/
+};
