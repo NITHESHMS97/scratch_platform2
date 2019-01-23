@@ -1,10 +1,19 @@
 var ports=
 {
 	"A1":"1",
-	"A2":"2"
+	"A2":"2",
+	"A3":"3",
+	"A4":"4",
+	"A5":"5"
 }
-
-
+var validDevice=
+{
+	"A1":["led"],
+	"A2":["led","beeper"]
+}
+var analogDevices=[];
+var outputDevices=["led","beeper"];
+var inputDevices=["swtich"];
 Blockly.JavaScript['string_length'] = function(block) {
   // String or array length.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
@@ -259,16 +268,23 @@ Blockly.JavaScript['start']=function(block)
 	var isOutputOpen=false;
 	var children=block.getChildren()
 	var output=new Array();
-	output.push("R","T","5","1","1","R","S","T");
-
+	var index=8;
+	portskey=Object.keys(ports);
+	output.push("R","T","5","1","1","S","E","T");
+	for (var i=0;i<24;i++)
+	{
+		output.push("O");
+	}
 	if(children[0])
 	{
 		var nextBlock=children[0];
 		while(nextBlock)
 		{
-			if(nextBlock.type.includes('A') && !isOutputOpen)
+			if( portskey.includes(nextBlock.type)/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 			{
 				code+="o,{,";
+				device=nextBlock.getFieldValue('CONNECT')
+
 				isOutputOpen=true;
 			}
 			else if(!nextBlock.type.includes('A') && isOutputOpen)
@@ -287,7 +303,11 @@ Blockly.JavaScript['start']=function(block)
 		
 	}
 //	console.log(code)
-	output=code.split(",")
-	console.log(output)
+	var temp=new Array();
+	temp=code.split(",");
+	for(var i=0;i<temp.length;i++)
+		output.push(temp[i]);
+//	output.concat(temp);
+	console.log(output);
 	return code;
 }

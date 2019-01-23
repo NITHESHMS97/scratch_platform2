@@ -12,21 +12,57 @@
 	<script src="blockly/javascript_compressed.js"></script> 
 	<script src="blockly/msg/js/en.js"></script>
 	<script src="custom_blocks.js" ></script>
+	<script src="custom_blocks_ports.js" ></script>
 	<script src="custom_generator1.js"></script>
 
 
 	<xml id="toolbox" src="toolbox.xml" style="display: none">
-		<block type="controls_if"></block>
-		<block type="A1"></block> 
-		<block type="string_length"></block>
-		<block type="A2"></block>
-		<block type="wait"></block>
-		<block type="value"></block>
-		<block type="logic"></block>
-		<block type="if_do"></block>
-		<block type="logic_compare"></block> 
-		<block type="repeat"></block>
-		<block type="start"></block>
+		
+		<category name="ports">
+			<category name="A">
+				<block type="A1"></block> 
+				<block type="A2"></block>
+				<block type="A3"></block>
+				<block type="A4"></block>
+			</category>
+			<category name="B">
+				<block type="B1"></block>
+				<block type="B2"></block>
+				<block type="B3"></block>
+				<block type="B4"></block>	
+			</category>
+			<category name="C">
+				<block type="C1"></block>
+				<block type="C2"></block>
+				<block type="C3"></block>
+				<block type="C4"></block>
+			</category>
+			<category name="F">
+				<block type="F1"></block>
+				<block type="F2"></block>
+			</category>
+			<category name="G">
+				<block type="G1"></block>
+				<block type="G2"></block>
+			</category>
+			<category name="M">
+				<block type="M1"></block>
+				<block type="M2"></block>
+				<block type="M3"></block>
+				<block type="M4"></block>	
+			</category>
+		</category>
+		<category name="rest">
+			<block type="controls_if"></block>
+			<block type="string_length"></block>
+			<block type="wait"></block>
+			<block type="value"></block>
+			<block type="logic"></block>
+			<block type="if_do"></block>
+			<block type="logic_compare"></block> 
+			<block type="repeat"></block>
+			<block type="start"></block>	
+		</category>
 	</xml>
 
 </head>
