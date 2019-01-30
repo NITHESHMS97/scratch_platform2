@@ -11,7 +11,7 @@ Blockly.Blocks['A1'] = {
         {
           "type": "input_value",
           "name": "VALUE",
-          
+
 
         }
       ],

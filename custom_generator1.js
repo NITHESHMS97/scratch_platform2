@@ -1,4 +1,5 @@
 
+
 var validDevice=
 {
 	"A1":["led"],
@@ -13,6 +14,10 @@ Blockly.JavaScript['string_length'] = function(block) {
       Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
   return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
 };
+function f(x)
+{
+	return x.charCodeAt();
+}
 
 Blockly.JavaScript['wait']=function(block)
 {
@@ -45,7 +50,7 @@ function generateByteformat(value)
 	{
 		firstbyte='0',
 		lastbyte='1'
-	}	
+	}
 	else if(value=='LOW')
 	{
 		firstbyte='0',
@@ -59,7 +64,7 @@ function generateByteformat(value)
 //			alert(typeof last16)
 
 		firstbyte=first16.toString();
-		lastbyte=last16.toString();	
+		lastbyte=last16.toString();
 	}
 	return firstbyte+","+lastbyte+",";
 }
@@ -68,10 +73,10 @@ function generateByteformat(value)
 Blockly.JavaScript['if_do']=function(blocks)
 {
 
-	var code="";	
+	var code="";
 	var conditionBlock=blocks.getInputTargetBlock('CONDITION') ;
 	var child="";
-	var isOutputOpen=false; 	
+	var isOutputOpen=false;
 	if(conditionBlock)
 	{
 		var value1;
@@ -106,7 +111,7 @@ Blockly.JavaScript['if_do']=function(blocks)
 
 		if(children[1])
 		{
-			
+
 			//child += Blockly.JavaScript.blockToCode(children[1]);
 			var nextBlock=children[1];
 			while(nextBlock)
@@ -116,7 +121,7 @@ Blockly.JavaScript['if_do']=function(blocks)
 				{
 					child+="o,{,";
 					isOutputOpen=true;
-				}	
+				}
 				else if(!nextBlock.type.includes('A'))
 				{
 					child+="},";
@@ -131,10 +136,10 @@ Blockly.JavaScript['if_do']=function(blocks)
 				child+="},";
 			}
 //			console.log(code+child+"0ED");
-		}	
+		}
 //			ifucan.innerHTML = children[1].type;
 //			= children[1].getNextBlock().type;
-	}	
+	}
 	return code+child+"0ED,";
 
 }
@@ -149,7 +154,7 @@ Blockly.JavaScript['repeat']=function(block)
 	var count=0;
 	if(countBlock)
 		count=countBlock.getFieldValue('VAL');
-	
+
 	var children=block.getChildren();
 	var child="";
 	var isOutputOpen = false;
@@ -170,21 +175,22 @@ Blockly.JavaScript['repeat']=function(block)
 			}
 
 			child += Blockly.JavaScript[nextBlock.type](nextBlock);
-			nextBlock = nextBlock.getNextBlock(); 	
+			nextBlock = nextBlock.getNextBlock();
 		}
 		if(isOutputOpen) {
 			child += "},";
 			isOutputOpen = false;
 		}
-		
+
 	}
-	
+
 //	return code+","+count.toString()+","+child;
 	repeatf.innerHTML=children[0].type;
 //	console.log(code+","+count.toString()+","+child+"0ED,")
 	return code+",0,0,"+count.toString()+","+child+"0ED,";
 
 }
+
 Blockly.JavaScript['start']=function(block)
 {
 	var code="";
@@ -193,11 +199,16 @@ Blockly.JavaScript['start']=function(block)
 	var output=new Array();
 	var index=8;
 	portskey=Object.keys(ports);
-	output.push("R","T","5","1","1","S","E","T");
-	for (var i=0;i<60;i++)
+	output.push(f("R"),f("T"),f("5"),1,1,f("S"),f("E"),f("T"));
+	for (var i=0;i<32;i++)
 	{
-		output.push("O");
+		output.push(f("O"));
 	}
+	for (var i=0;i<32;i++)
+	{
+		output.push(0);
+	}
+	
 	if(children[0])
 	{
 		var nextBlock=children[0];
@@ -206,6 +217,7 @@ Blockly.JavaScript['start']=function(block)
 			if( ports.includes(nextBlock.type)/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 			{
 				code+="o,{,";
+//				output.push(f('o'),f('{'));
 				device=nextBlock.getFieldValue('CONNECT')
 
 				isOutputOpen=true;
@@ -214,17 +226,21 @@ Blockly.JavaScript['start']=function(block)
 			{
 				isOutputOpen=false;
 				code+="},";
+//				output.push(f('}'));
 			}
+			
 			code+=Blockly.JavaScript[nextBlock.type](nextBlock)
+			
 			if(ports.includes(nextBlock.type))
-			{			
+			{
 				var device=nextBlock.getFieldValue('CONNECT');
 				var port=nextBlock.type;
 				var type=portsDev[port][device];
-				output[8+ports.indexOf(port)]=type;
+				output[8+ports.indexOf(port)]=f(type);
 			}
 			else if(nextBlock.type=="end")
 			{
+			
 				break;
 			}
 			nextBlock=nextBlock.getNextBlock();
@@ -235,16 +251,26 @@ Blockly.JavaScript['start']=function(block)
 			code+="},";
 			isOutputOpen=false;
 		}
-		
+
 	}
-//	console.log(code)
+//	console.log(code)/*
 	var temp=new Array();
 	temp=code.split(",");
 	for(var i=0;i<temp.length;i++)
-		output.push(temp[i]);
+	{	
+		if(isNaN(temp[i]))
+			output.push(f(temp[i]));
+		else	
+			output.push(parseInt(temp[i]));
+	}
 //	output.concat(temp);
+	msg1="yy";
 	console.log(output);
+	out=output;
+	p1.innerHTML=JSON.stringify(output);
+	text.value=JSON.stringify(output);
 	return code;
+
 }
 
 Blockly.JavaScript['end']=function(block)
@@ -252,9 +278,10 @@ Blockly.JavaScript['end']=function(block)
 	var endType=block.getFieldValue('TYPE');
 	var code="";
 	if(endType=="REPEAT")
-		code="RST";
+		code="R,S,T";
 	else
-		code="END";
+		code="E,N,D";
 	return code;
 
 }
+

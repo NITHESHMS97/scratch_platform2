@@ -1,0 +1,26 @@
+{
+  "name": "blockly2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "blockly_compressed.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NITHESHMS97/Blockly_scratch_editor.git"
+  },
+  "author": "Nithesh M S",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NITHESHMS97/Blockly_scratch_editor/issues"
+  },
+  "homepage": "https://github.com/NITHESHMS97/Blockly_scratch_editor#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "serialport": "^7.1.4"
+  }
+}

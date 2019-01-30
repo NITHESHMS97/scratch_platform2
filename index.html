@@ -3,26 +3,29 @@
 <head>
 	<title>i4</title>
 	<script >
-		msg1="";
+		msg1="xx";
 		msg2="";
 		msg3="";
+		
+
 	</script>
 	<script src="port_dict.js"></script>
 	<script src="blockly/blockly_compressed.js"></script>
 	<script src="blockly/blocks_compressed.js"></script>
-	<script src="blockly/javascript_compressed.js"></script> 
+	<script src="blockly/javascript_compressed.js"></script>
 	<script src="blockly/msg/js/en.js"></script>
-	<script src="custom_generator_ports.js"></script> 
+	<script src="custom_generator_ports.js"></script>
 	<script src="custom_blocks_ports.js"></script>
 	<script src="custom_blocks.js" ></script>
 	<script src="custom_blocks_ports.js" ></script>
 	<script src="custom_generator1.js"></script>
+	<script src="serialport.js"></script>
 
 	<xml id="toolbox"  style="display: none">
-		
+
 		<category name="ports">
 			<category name="A">
-				<block type="A1"></block> 
+				<block type="A1"></block>
 				<block type="A2"></block>
 				<block type="A3"></block>
 				<block type="A4"></block>
@@ -31,7 +34,7 @@
 				<block type="B1"></block>
 				<block type="B2"></block>
 				<block type="B3"></block>
-				<block type="B4"></block>	
+				<block type="B4"></block>
 			</category>
 			<category name="C">
 				<block type="C1"></block>
@@ -51,7 +54,7 @@
 				<block type="M1"></block>
 				<block type="M2"></block>
 				<block type="M3"></block>
-				<block type="M4"></block>	
+				<block type="M4"></block>
 			</category>
 		</category>
 		<category name="rest">
@@ -62,32 +65,40 @@
 			<block type="value"></block>
 			<block type="logic"></block>
 			<block type="if_do"></block>
-			<block type="logic_compare"></block> 
+			<block type="logic_compare"></block>
 			<block type="repeat"></block>
-			<block type="end"></block>	
+			<block type="end"></block>
 		</category>
 	</xml>
 
 </head>
 <body>
 	<div id="blocklyDiv" style="height:380px;width:700px;"></div>
-	<p id="codehere"> GET CODE HERE</p>
+<!--	<p id="codehere"> GET CODE HERE</p>
 	<p id="finalcode">FINAL CODE</p>
 	<p id="startgen">startgen</p>
 	<p id="ifucan"> abcuis</p>
 	<p id="repeatf">repeatdebug</p>
 	<p id="p6">p6</p>
+	<p id="p7">p7</p>
+
+-->
+	<p id="p1"></p>
+	<form action="http://127.0.0.1:3000" method="POST">
+		<input type="text" id="text" name="code"/>
+		<input type="submit"  name="submit"/>
+	</form>
 </body>
 
 <script>
-	 
+
 	  var workspace = Blockly.inject('blocklyDiv',
       {toolbox: document.getElementById('toolbox')});
 
 		function printIt()
 		{
 			finalcode.innerHTML="o{"+msg1+" "+msg2+msg3;
-			
+
 		}
 </script>
 	<script>
@@ -95,7 +106,7 @@
 		function myUpdateFunction(event)
 		{
 			var code=Blockly.JavaScript.workspaceToCode(workspace);
-			codehere.innerHTML=code;
+//			codehere.innerHTML=code;
 
 
 		}
