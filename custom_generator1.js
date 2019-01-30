@@ -200,11 +200,11 @@ Blockly.JavaScript['start']=function(block)
 	var index=8;
 	portskey=Object.keys(ports);
 	output.push(f("R"),f("T"),f("5"),1,1,f("S"),f("E"),f("T"));
-	for (var i=0;i<32;i++)
+	for (var i=0;i<33;i++)
 	{
 		output.push(f("O"));
 	}
-	for (var i=0;i<32;i++)
+	for (var i=0;i<28;i++)
 	{
 		output.push(0);
 	}
