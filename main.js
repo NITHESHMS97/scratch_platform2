@@ -4,7 +4,7 @@ const express=require('express');
   var app=express();
   app.use(express.static('./'));
 
-  var a=[82,84,53,1,1,83,69,84,79,"O".charCodeAt(),79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,15,37,0,0,111,123,1,0,1,125,82,83,84]
+  var a=[82,84,53,1,1,83,69,84,79,"O".charCodeAt(),79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,79,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,116,15,37,0,0,111,123,1,0,1,125,119,0,0,19,136,111,123,1,0,0,125,82,83,84]
 
 
   var urlencode=bodyparser.urlencoded({extended:false})
@@ -35,11 +35,11 @@ app.post('/',urlencode,function(req,res)
 {
   console.log(req.body.code);
   code=JSON.parse(req.body.code);
-  for(var i=0;i<code.length;i++)
+  for(var i=0;i<a.length;i++)
   {
     console.log(i+" "+code[i]+" "+a[i])
   }
-    myPort.write(code,function(err)
+  myPort.write(code,function(err)
     {
       if(err)
       {
