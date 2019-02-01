@@ -7,7 +7,7 @@ var validDevice=
 }
 var analogDevices=[];
 var outputDevices=["led","beeper"];
-var inputDevices=["swtich"];
+var inputDevices=["switch"];
 Blockly.JavaScript['string_length'] = function(block) {
   // String or array length.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
@@ -140,7 +140,7 @@ Blockly.JavaScript['if_do']=function(blocks)
 //			ifucan.innerHTML = children[1].type;
 //			= children[1].getNextBlock().type;
 	}
-	return code+child+"0ED,";
+	return code+child+"0,E,D,";
 
 }
 Blockly.JavaScript['logic_compare']=function(block)
@@ -259,6 +259,38 @@ Blockly.JavaScript['start']=function(block)
 
 				}
 			} 
+			else if(nextBlock.type=="if_do")
+			{
+				var conditionblock=nextBlock.getInputTargetBlock('CONDITION') ;
+				if(conditionblock)
+				{
+					var if_port=conditionblock.getFieldValue('PORT');
+					var if_device=conditionblock.getFieldValue('DEV');
+					var iftype=portsDev[if_port][if_device];
+				//	alert(iftype);
+					output[8+ports.indexOf(if_port)]=f(iftype);	
+				}
+				var ifchild=nextBlock.getChildren();
+				if(ifchild[1])
+				{
+					var if_nextblock=ifchild[1];	
+					while(if_nextblock)
+					{
+						if(ports.includes(if_nextblock.type))
+						{
+							var do_device=if_nextblock.getFieldValue('CONNECT');
+							var do_port=if_nextblock.type;
+							var do_type=portsDev[do_port][do_device];
+						//	alert(type);
+							output[8+ports.indexOf(do_port)]=f(do_type);							
+
+						}
+						if_nextblock=if_nextblock.getNextBlock();
+					}
+				}
+				
+				
+			}
 			else if(nextBlock.type=="end")
 			{
 			

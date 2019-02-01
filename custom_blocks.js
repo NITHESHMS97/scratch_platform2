@@ -136,14 +136,16 @@ Blockly.Blocks['logic_compare'] = {
             ["A1","A1"],
             ["A2","A2"],
             ["A3","A3"],
-            ["A4","A4"]
+            ["A4","A4"],
+            ["A5","A5"],
+            ["A6","A6"],
           ]
         },
         {
           "type":"field_dropdown",
           "name":"DEV",
           "options":[
-            ["Tact switch","Tatch switch"],
+            ["Tact switch","Tact switch"],
             ["Touch switch","Touch switch"],
             ["Dual switch","Dual switch"],
             ["Heartbeat","Heartbeat"],
