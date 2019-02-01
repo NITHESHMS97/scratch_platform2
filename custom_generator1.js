@@ -150,11 +150,9 @@ Blockly.JavaScript['logic_compare']=function(block)
 Blockly.JavaScript['repeat']=function(block)
 {
 	var code="l";
-	var countBlock=block.getInputTargetBlock('COUNT');
-	var count=0;
-	if(countBlock)
-		count=countBlock.getFieldValue('VAL');
-
+//	var countBlock=block.getInputTargetBlock('COUNT');
+	var count=0; 
+	count=block.getFieldValue('COUNT');
 	var children=block.getChildren();
 	var child="";
 	var isOutputOpen = false;
@@ -163,12 +161,11 @@ Blockly.JavaScript['repeat']=function(block)
 		var nextBlock = children[0];
 		while(nextBlock){
 			//console.log(nextBlock.type);
-			if(nextBlock.type.includes('A') && !isOutputOpen){
+			if(ports.includes(nextBlock.type)/*nextBlock.type.includes('A')*/ && !isOutputOpen){
 				child += "o,{,";
 				isOutputOpen = true;
 			}
-
-			else if(!nextBlock.type.includes('A')){
+			else if(!ports.includes(nextBlock.type)){
 
 					isOutputOpen = false;
 					child += "},";
@@ -185,9 +182,9 @@ Blockly.JavaScript['repeat']=function(block)
 	}
 
 //	return code+","+count.toString()+","+child;
-	repeatf.innerHTML=children[0].type;
+//	repeatf.innerHTML=children[0].type;
 //	console.log(code+","+count.toString()+","+child+"0ED,")
-	return code+",0,0,"+count.toString()+","+child+"0ED,";
+	return code+",0,0,"+count.toString()+","+child+"0,E,L,";
 
 }
 
@@ -238,11 +235,36 @@ Blockly.JavaScript['start']=function(block)
 				var type=portsDev[port][device];
 				output[8+ports.indexOf(port)]=f(type);
 			}
+			else if(nextBlock.type=='repeat')
+			{
+				
+				var repeatchild=nextBlock.getChildren();
+				if(repeatchild[0])
+				{
+				
+				//	alert(repeatchild[0].type);
+					var nextblock=repeatchild[0];
+					while(nextblock)
+					{
+						if(ports.includes(nextblock.type)/*nextBlock.type.includes('A')*/)
+						{
+							var device=nextblock.getFieldValue('CONNECT');
+							var port=nextblock.type;
+							var type=portsDev[port][device];
+						//	alert(type);
+							output[8+ports.indexOf(port)]=f(type);
+						}
+						nextblock=nextblock.getNextBlock();
+					}
+
+				}
+			} 
 			else if(nextBlock.type=="end")
 			{
 			
 				break;
 			}
+
 			nextBlock=nextBlock.getNextBlock();
 
 		}

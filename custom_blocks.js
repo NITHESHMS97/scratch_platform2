@@ -143,10 +143,11 @@ Blockly.Blocks['logic_compare'] = {
           "type":"field_dropdown",
           "name":"DEV",
           "options":[
-            ["LED","LED"],
-            ["beeper","beeper"],
-            ["laser","laser"],
-            ["motor","motor"]
+            ["Tact switch","Tatch switch"],
+            ["Touch switch","Touch switch"],
+            ["Dual switch","Dual switch"],
+            ["Heartbeat","Heartbeat"],
+            ["Metal sensor","Metal sensor"]
           ]
         },
         {
@@ -187,8 +188,8 @@ Blockly.Blocks['repeat'] = {
       "message0": 'repeat %1 times',
       "args0": [
         {
-          "type":"input_value",
-          "name":"COUNT",
+          "type":"field_number",
+          "name":"COUNT"
         },
       ],
       "message1":"do %1",
