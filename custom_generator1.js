@@ -84,27 +84,34 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var portval;
 		var port=conditionBlock.getFieldValue('PORT');
 		var operator=conditionBlock.getFieldValue('OP');
-		if(port=="A1")
+/*		if(port=="A1")
 			portval="1,";
 		else if(port=="A2")
-			portval="2,";
+			portval="2,";*/
 //		conditionBlock.getField("VAL2").setVisible(false);
+		portval=ports.indexOf(port)+1;
+		
 		var value1=conditionBlock.getFieldValue("VAL1");
 		var value2=0;
 		if(operator=="<>")
 		{
+
 			value2=conditionBlock.getFieldValue("VAL2");
 			if(value2<value1)
 			{
-				conditionBlock.getField("VAL2").setValue(value1);
+//				conditionBlock.getField("VAL2").setValue(value1);
+				var temp=value2;
+				var value2=value1;
+				var value1=temp;
 			}
+			operator="?";
 		}
 		var value1byte=generateByteformat(value1);
 		var value2byte=generateByteformat(value2);
 //		alert(value2byte)
 		var opascii=operator.charCodeAt().toString();
 		code="d,";
-		code+=value2byte+portval+value1byte+opascii+",";
+		code+=value2byte+portval.toString()+","+value1byte+opascii+",";
 		children=blocks.getChildren(false);
 		//if(children[0])
 		//	child += Blockly.JavaScript.blockToCode(children[0]);
@@ -142,6 +149,10 @@ Blockly.JavaScript['if_do']=function(blocks)
 	}
 	return code+child+"0,E,D,";
 
+}
+Blockly.JavaScript['value']=function(block)
+{
+	return "value";
 }
 Blockly.JavaScript['logic_compare']=function(block)
 {
