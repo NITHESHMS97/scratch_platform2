@@ -154,6 +154,10 @@ Blockly.JavaScript['value']=function(block)
 {
 	return "value";
 }
+Blockly.JavaScript['logic']=function(block)
+{
+	return "logic";
+}
 Blockly.JavaScript['logic_compare']=function(block)
 {
 	return "log_compare_block";

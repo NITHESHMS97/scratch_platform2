@@ -10,7 +10,11 @@ function code_generator(portname,logic_input)
 		if(logic_input.includes(device))
 			block.getInput('VALUE').setCheck('String')
 		else	
-			block.getInput('VALUE').setCheck('Number')
+		{
+
+			block.getInput('VALUE').setCheck('Number');
+			
+		}	
 		var code=(ports.indexOf(portname)+1).toString()+",";
 		if(targetBlock)
 		{
@@ -29,6 +33,7 @@ function code_generator(portname,logic_input)
 			}
 			
 		}
+
 
 		return code;
 		

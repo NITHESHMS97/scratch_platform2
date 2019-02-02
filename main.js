@@ -11,7 +11,23 @@ var a=[82, 84, 53, 1, 1, 83, 69, 84,"I".charCodeAt(), "P".charCodeAt(), 79, 79, 
 var urlencode=bodyparser.urlencoded({extended:false})
 var code=new Array();
 
-var myPort =new serialport('COM3',9600)
+var comport;
+var myPort;
+serialport.list(function(err,ports)
+{
+  ports.forEach(function(port)
+  {
+    if(port.vendorId=="10C4")
+    {
+  //    console.log(port.comName);
+      comport=port.comName;
+      console.log("cccc",comport);
+      myPort =new serialport(comport,9600)
+    }
+  });
+});
+
+
 
 function senddata(code)
 {

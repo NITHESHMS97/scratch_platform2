@@ -57,17 +57,24 @@
 				<block type="M4"></block>
 			</category>
 		</category>
-		<category name="rest">
+		<category name="start/end">
 			<block type="start"></block>
-			<block type="controls_if"></block>
-			<block type="string_length"></block>
-			<block type="wait"></block>
+			<block type="end"></block>
+		</category>
+		<category name="value/logic">
 			<block type="value"></block>
 			<block type="logic"></block>
+		</category>
+		<cateory name="wait">	
+			<block type="wait"></block>
+		</cateory>
+		<category name="if">
 			<block type="if_do"></block>
 			<block type="logic_compare"></block>
-			<block type="repeat"></block>
-			<block type="end"></block>
+		</category>
+		<category name="repeat">
+		<block type="repeat"></block>
+		</category>
 		</category>
 	</xml>
 
@@ -84,12 +91,31 @@
 
 -->
 	<p id="p1"></p>
-	<form action="http://127.0.0.1:3000" method="POST">
-		<input type="text" id="text" name="code"/>
+	<form action="http://127.0.0.1:3000" method="POST" style="display:inline">
+		<input type="hidden" id="text" name="code"/>
 		<input type="submit"  name="submit"/>
 	</form>
-</body>
+	<button onclick="save()">save</button>
 
+	<button onclick="load()">load</button>
+</body>
+<script>
+	function save() {
+	
+    var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    alert(xmlText);
+    localStorage.setItem("savedblockly.xml", xmlText);
+}
+function load() {
+    var xmlText = localStorage.getItem("savedblockly.xml");
+    if (xmlText) {
+        Blockly.mainWorkspace.clear();
+        xmlDom = Blockly.Xml.textToDom(xmlText);
+        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
+    }
+}
+</script>
 <script>
 
 	  var workspace = Blockly.inject('blocklyDiv',
