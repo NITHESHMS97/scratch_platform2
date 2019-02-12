@@ -21,7 +21,7 @@ serialport.list(function(err,ports)
     {
   //    console.log(port.comName);
       comport=port.comName;
-      console.log("cccc",comport);
+      console.log(comport);
       myPort =new serialport(comport,9600)
     }
   });

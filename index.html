@@ -23,56 +23,56 @@
 
 	<xml id="toolbox"  style="display: none">
 
-		<category name="ports">
-			<category name="A">
+		<category name="ports" colour="100"> 
+			<category name="A" colour="110">
 				<block type="A1"></block>
 				<block type="A2"></block>
 				<block type="A3"></block>
 				<block type="A4"></block>
 			</category>
-			<category name="B">
+			<category name="B" colour="120">
 				<block type="B1"></block>
 				<block type="B2"></block>
 				<block type="B3"></block>
 				<block type="B4"></block>
 			</category>
-			<category name="C">
+			<category name="C" colour="130">
 				<block type="C1"></block>
 				<block type="C2"></block>
 				<block type="C3"></block>
 				<block type="C4"></block>
 			</category>
-			<category name="F">
+			<category name="F" colour="140">
 				<block type="F1"></block>
 				<block type="F2"></block>
 			</category>
-			<category name="G">
+			<category name="G" colour="150">
 				<block type="G1"></block>
 				<block type="G2"></block>
 			</category>
-			<category name="M">
+			<category name="M" colour="160">
 				<block type="M1"></block>
 				<block type="M2"></block>
 				<block type="M3"></block>
 				<block type="M4"></block>
 			</category>
 		</category>
-		<category name="start/end">
+		<category name="start/end" colour="200">
 			<block type="start"></block>
 			<block type="end"></block>
 		</category>
-		<category name="value/logic">
+		<category name="value/logic" colour="210">
 			<block type="value"></block>
 			<block type="logic"></block>
 		</category>
-		<cateory name="wait">	
+		<cateory name="wait" colour="220">	
 			<block type="wait"></block>
 		</cateory>
-		<category name="if">
+		<category name="if " colour="230">
 			<block type="if_do"></block>
 			<block type="logic_compare"></block>
 		</category>
-		<category name="repeat">
+		<category name="repeat" colour="230">
 		<block type="repeat"></block>
 		</category>
 		</category>
@@ -80,7 +80,7 @@
 
 </head>
 <body>
-	<div id="blocklyDiv" style="height:380px;width:700px;"></div>
+	<div id="blocklyDiv" style="height:450px;width:1200px;"></div>
 <!--	<p id="codehere"> GET CODE HERE</p>
 	<p id="finalcode">FINAL CODE</p>
 	<p id="startgen">startgen</p>
@@ -95,26 +95,105 @@
 		<input type="hidden" id="text" name="code"/>
 		<input type="submit"  name="submit"/>
 	</form>
-	<button onclick="save()">save</button>
-
-	<button onclick="load()">load</button>
+<!--	
+	<input type="button" name="save"  value="save" onclick="save()"/>
+	<input type="file"  name="loadfile" id="loadfile"/>
+-->
+	<input type="button" name="save" value="save" onclick="savef()"/>
+	<input type="button" name="load"  value="load" onclick="loadf()"/>
+	<input type="file"  name="loadfile" id="loadfile" />
 </body>
 <script>
-	function save() {
-	
-    var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-    alert(xmlText);
-    localStorage.setItem("savedblockly.xml", xmlText);
-}
-function load() {
-    var xmlText = localStorage.getItem("savedblockly.xml");
+/*
+function save()
+	{
+		var filename = prompt("Please enter filename", "new1");
+		var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+	    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+	 //   alert(xmlText);
+		
+   		localStorage.setItem("savedblockly.xml", xmlText);
+
+	}
+	document.getElementById('loadfile').onchange = function () {
+	var s=this.value;
+	alert(this.value);
+	var x=s.substring(s.lastIndexOf("\\")+1,s.length);
+	var xmlText = localStorage.getItem("savedblockly.xml");
     if (xmlText) {
         Blockly.mainWorkspace.clear();
         xmlDom = Blockly.Xml.textToDom(xmlText);
         Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
-    }
-}
+	}
+	document.getElementById('savefile').onchange = function () {
+		alert("hi")
+	}
+};
+*/
+</script>
+<script>
+	function loada(evt)
+	{
+		var f = evt.target.files[0]; 
+		var contents;
+		if (f) {
+		var r = new FileReader();
+		r.onload = function(e) { 
+			contents = e.target.result;
+//			alert(contents);  
+			var xmlText=contents;
+//			alert(xmlText)
+			if (xmlText)
+			{
+				Blockly.mainWorkspace.clear();
+				xmlDom = Blockly.Xml.textToDom(xmlText);
+				Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
+			}
+		}
+		r.readAsText(f);
+		}
+		else 
+		{ 
+			alert("Failed to load file");
+		}	
+		
+	}
+	document.getElementById('loadfile').addEventListener('change', loada, false);
+</script>
+<script>
+	var filename;
+	function savef() 
+	{
+		filename = prompt("Please enter filename", "new1");
+		var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+		var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
+    	blob = new Blob([xmlText], { type: 'text/plain' }),
+	    anchor = document.createElement('a');
+
+		anchor.download = filename;
+		anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
+		anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
+		anchor.click();
+//		localStorage.setItem("blocklys.xml", xmlText);
+	}
+	
+	function loadf()
+	{
+		var xmlText;
+		if(filename)
+			xmlText = localStorage.getItem("savedblockly.xml");
+		if (xmlText)
+		{
+			Blockly.mainWorkspace.clear();
+			xmlDom = Blockly.Xml.textToDom(xmlText);
+			Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
+		}
+		for (var i = 0; i < localStorage.length; i++) 
+		{
+  			console.log(localStorage.key(i))
+		};
+	}
+
 </script>
 <script>
 
