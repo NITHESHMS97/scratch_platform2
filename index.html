@@ -9,6 +9,17 @@
 		
 
 	</script>
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 	<script src="port_dict.js"></script>
 	<script src="blockly/blockly_compressed.js"></script>
 	<script src="blockly/blocks_compressed.js"></script>
@@ -23,7 +34,11 @@
 
 	<xml id="toolbox"  style="display: none">
 
-		<category name="ports" colour="100"> 
+		<category name="Start/End" colour="200">
+			<block type="start"></block>
+			<block type="end"></block>
+		</category>
+		<category name="Ports" colour="100"> 
 			<category name="A" colour="110">
 				<block type="A1"></block>
 				<block type="A2"></block>
@@ -50,88 +65,68 @@
 				<block type="G1"></block>
 				<block type="G2"></block>
 			</category>
-			<category name="M" colour="160">
+			<category name="Motor" colour="160">
 				<block type="M1"></block>
 				<block type="M2"></block>
-				<block type="M3"></block>
-				<block type="M4"></block>
 			</category>
 		</category>
-		<category name="start/end" colour="200">
-			<block type="start"></block>
-			<block type="end"></block>
-		</category>
-		<category name="value/logic" colour="210">
+		<category name="Special Accessories" colour="180">
+			<block type="Dot_Matrix"></block>
+			<block type="MP3"></block>
+
+		</category>		
+		<category name="Value/Logic" colour="240">
 			<block type="value"></block>
 			<block type="logic"></block>
+		<block type=matrix_input></block> 
 		</category>
-		<cateory name="wait" colour="220">	
+		<category name="Wait" colour="280">	
 			<block type="wait"></block>
-		</cateory>
-		<category name="if " colour="230">
+		</category>
+		<category name="Decision" colour="300">
 			<block type="if_do"></block>
 			<block type="logic_compare"></block>
 		</category>
-		<category name="repeat" colour="230">
+		<category name="Loop" colour="340">
 		<block type="repeat"></block>
 		</category>
 		</category>
+
 	</xml>
 
 </head>
+
 <body>
-	<div id="blocklyDiv" style="height:450px;width:1200px;"></div>
-<!--	<p id="codehere"> GET CODE HERE</p>
-	<p id="finalcode">FINAL CODE</p>
-	<p id="startgen">startgen</p>
-	<p id="ifucan"> abcuis</p>
-	<p id="repeatf">repeatdebug</p>
-	<p id="p6">p6</p>
-	<p id="p7">p7</p>
+	
+	<nav class="navbar navbar-inverse" > 
+		<div class="container-fluid" >
+			<a class="navbar-brand" href="#">
+				<img src="img/logo.png" alt="Logo" style="width:35px;">
+			</a>
+		<div class="navbar-header">
+		<a class="navbar-brand" style="color:whitesmoke" href="#">Bibox-Scratch</a>
+		</div>
+		<ul class="nav navbar-nav navbar-right">
+				<img src="img/save_button.png"  onclick="savef()" class="img-rounded"  alt="Cinque Terre">
+		<!--		<input  type="file"  name="loadfile" id="loadfile" style="display: inline;" /> -->
+			<form action="http://127.0.0.1:3000" method="POST" style="display:inline">
+				<input type="hidden" id="text" name="code"/>
+				<input  type="image" src="img/18.png" style="width:35px; height:35px" name="submit"/>
 
--->
-	<p id="p1"></p>
-	<form action="http://127.0.0.1:3000" method="POST" style="display:inline">
-		<input type="hidden" id="text" name="code"/>
-		<input type="submit"  name="submit"/>
-	</form>
-<!--	
-	<input type="button" name="save"  value="save" onclick="save()"/>
-	<input type="file"  name="loadfile" id="loadfile"/>
--->
-	<input type="button" name="save" value="save" onclick="savef()"/>
-	<input type="button" name="load"  value="load" onclick="loadf()"/>
-	<input type="file"  name="loadfile" id="loadfile" />
+			</form>
+		</ul>
+	</div>
+	</nav>
+	<div id="blocklyDiv" style="height:450px;width:100%;"></div>
+	<p id="mp3"></p>
+
+	
 </body>
-<script>
-/*
-function save()
-	{
-		var filename = prompt("Please enter filename", "new1");
-		var xmlDom = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
-	    var xmlText = Blockly.Xml.domToPrettyText(xmlDom);
-	 //   alert(xmlText);
-		
-   		localStorage.setItem("savedblockly.xml", xmlText);
 
-	}
-	document.getElementById('loadfile').onchange = function () {
-	var s=this.value;
-	alert(this.value);
-	var x=s.substring(s.lastIndexOf("\\")+1,s.length);
-	var xmlText = localStorage.getItem("savedblockly.xml");
-    if (xmlText) {
-        Blockly.mainWorkspace.clear();
-        xmlDom = Blockly.Xml.textToDom(xmlText);
-        Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
-	}
-	document.getElementById('savefile').onchange = function () {
-		alert("hi")
-	}
-};
-*/
-</script>
 <script>
+/* refer this to understand
+https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascript-filereader.html
+*/
 	function loada(evt)
 	{
 		var f = evt.target.files[0]; 

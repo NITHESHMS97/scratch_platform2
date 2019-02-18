@@ -21,6 +21,7 @@
     "express": "^4.16.4",
     "fs": "0.0.1-security",
     "nodemon": "^1.18.9",
+    "opener": "^1.5.1",
     "path": "^0.12.7",
     "serialport": "^7.1.4"
   }

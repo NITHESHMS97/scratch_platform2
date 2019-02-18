@@ -1,4 +1,59 @@
 
+Blockly.Blocks['MP3'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'F MP3 %1',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE",
+          "check":"Number"
+        }
+      ],
+      "nextStatement": "Action",
+      "previousStatement":"Action",
+      "colour": 160,
+      "tooltip": "MP3",
+    });
+  }
+};
+Blockly.Blocks['Dot_Matrix'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'B Dot Matrix %1',
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "VALUE",
+          
+        }
+      ],
+      "nextStatement": "Action",
+      "previousStatement":"Action",
+      "colour": 160,
+      "tooltip": "Dot Matrix",
+    });
+  }
+};
+
+Blockly.Blocks['matrix_input'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'Text %1',
+      "args0": [
+        {
+          "type": "field_input",
+          "name": "VAL",
+          "text": "max 5"
+        }
+      ],
+       "output": "String",
+      "colour": 160,
+      
+      "tooltip": "Dot Matrix"
+    });
+  }
+};
 
 
 Blockly.Blocks['value']={
@@ -11,7 +66,7 @@ Blockly.Blocks['value']={
         [
           {
             "type":"field_number",
-            "name":"VAL",
+            "name":"VALUE",
             "value":100
           }
         ],
@@ -62,7 +117,7 @@ Blockly.Blocks['wait']={
   init: function(){
     this.jsonInit(
     {
-        "message0":"wait h %1 m %2 s %3",
+        "message0":"wait h: %1 m: %2 s: %3 milli:%4",
         "args0":
         [
 
@@ -71,7 +126,7 @@ Blockly.Blocks['wait']={
             "name":"HRS",
             "value":0,
             "min":0,
-            "max":24,
+            "max":23,
             "check":"Number"
           },
           {
@@ -79,7 +134,7 @@ Blockly.Blocks['wait']={
             "name":"MIN",
             "value":0,
             "min":0,
-            "max":60,
+            "max":59,
             "check":"Number"
           },
           {
@@ -87,9 +142,18 @@ Blockly.Blocks['wait']={
             "name":"SEC",
             "value":0,
             "min":0,
-            "max":60,
+            "max":59,
+            "check":"Number"
+          },
+          {
+            "type":"field_number",
+            "name":"MILLI",
+            "value":0,
+            "min":0,
+            "max":950,
             "check":"Number"
           }
+
         ],
         "nextStatement": "Action",
         "previousStatement":"Action",
