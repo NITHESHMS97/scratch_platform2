@@ -1,9 +1,71 @@
 
+function generateByteformat(value)
+{
+	var firstbyte="";
+	var lastbyte="";
+	if(value=='HIGH')
+	{
+		firstbyte='0',
+		lastbyte='1'
+	}
+	else if(value=='LOW')
+	{
+		firstbyte='0',
+		lastbyte='1'
+	}
+	else
+	{
+		first16=value & 65280;
+		last16=value & 255;
+		first16=first16>>8;
+//			alert(typeof last16)
+
+		firstbyte=first16.toString();
+		lastbyte=last16.toString();
+	}
+	return firstbyte+","+lastbyte+",";
+}
+
+
 function f(x)
 {
 	return x.charCodeAt();
 }
-
+Blockly.JavaScript['BiFlag']=function(block)
+{
+	var cnt=block.getFieldValue('Bic');
+	var bool=block.getFieldValue('boolean');
+	var portval=52;
+	portval+=parseInt(cnt);
+	var code=portval.toString()+",";
+	if(bool=="True")
+		code+="0,1,";
+	else
+		code+="0,0,";
+	return code;
+}
+Blockly.JavaScript['BiCounter']=function(block)
+{
+	var cnt=block.getFieldValue('Bic');
+	var init=block.getFieldValue('INIT');
+	var direct=block.getFieldValue('direction');
+	var value=block.getFieldValue('VALUE');
+	var code;
+	var initval=generateByteformat(parseInt(init));
+	var val=generateByteformat(parseInt(value));
+	var portval;
+	if(direct=="+")
+		portval=34;
+	else 
+		portval=37;
+	portval=portval+parseInt(cnt);
+	if(init!=0)
+		code="50,"+initval+portval+","+val;
+	else
+		code=portval+","+val;
+//	console.log(code);
+	return code;
+}
 Blockly.JavaScript['MP3']=function(block)
 {
 	var code='78,';
@@ -74,33 +136,6 @@ Blockly.JavaScript['wait']=function(block)
 
 }
 
-
-function generateByteformat(value)
-{
-	var firstbyte="";
-	var lastbyte="";
-	if(value=='HIGH')
-	{
-		firstbyte='0',
-		lastbyte='1'
-	}
-	else if(value=='LOW')
-	{
-		firstbyte='0',
-		lastbyte='1'
-	}
-	else
-	{
-		first16=value & 65280;
-		last16=value & 255;
-		first16=first16>>8;
-//			alert(typeof last16)
-
-		firstbyte=first16.toString();
-		lastbyte=last16.toString();
-	}
-	return firstbyte+","+lastbyte+",";
-}
 
 
 Blockly.JavaScript['if_do']=function(blocks)
@@ -177,12 +212,12 @@ Blockly.JavaScript['if_do']=function(blocks)
 			while(nextBlock)
 			{
 //				console.log(nextBlock.type);
-				if(!isOutputOpen && nextBlock.type.includes('A'))
+			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 				{
 					child+="o,{,";
 					isOutputOpen=true;
 				}
-				else if(!nextBlock.type.includes('A'))
+				else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| variable.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
 				{
 					child+="},";
 					isOutputOpen=false;
@@ -239,11 +274,13 @@ Blockly.JavaScript['repeat']=function(block)
 		var nextBlock = children[0];
 		while(nextBlock){
 			//console.log(nextBlock.type);
-			if(ports.includes(nextBlock.type)/*nextBlock.type.includes('A')*/ && !isOutputOpen){
+			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			{
 				child += "o,{,";
 				isOutputOpen = true;
 			}
-			else if(!ports.includes(nextBlock.type)){
+			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| variable.includes(nextBlock.type))&& isOutputOpen)
+			{
 
 					isOutputOpen = false;
 					child += "},";
@@ -290,7 +327,7 @@ Blockly.JavaScript['start']=function(block)
 		var nextBlock=children[0];
 		while(nextBlock)
 		{
-			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 			{
 				code+="o,{,";
 //				output.push(f('o'),f('{'));
@@ -298,7 +335,7 @@ Blockly.JavaScript['start']=function(block)
 
 				isOutputOpen=true;
 			}
-			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
+			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| variable.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
 			{
 				isOutputOpen=false;
 				code+="},";

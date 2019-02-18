@@ -1,3 +1,76 @@
+Blockly.Blocks['BiFlag'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'BiFlag %1 boolean: %2',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"Bic",
+          "options":[
+            ["1","1"],
+            ["2","2"],
+            ["3","3"]
+            
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"boolean",
+          "options":[
+            ["True","True"],
+            ["False","False"]
+          ]
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120
+    });
+  }
+};
+
+Blockly.Blocks['BiCounter'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'BiCounter %1 intial value: %2',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"Bic",
+          "options":[
+            ["1","1"],
+            ["2","2"],
+            ["3","3"]
+            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"INIT"
+        }
+      ],
+      "message1": "%1 value: %2",
+      "args1": [
+        {
+          "type":"field_dropdown",
+          "name":"direction",
+          "options":[
+            ["+","+"],
+            ["-","-"]            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"VALUE"
+        }
+      ],
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120
+    });
+  }
+};
+
 Blockly.Blocks['RFID'] = {
   init: function() {
     this.jsonInit({
@@ -27,6 +100,7 @@ Blockly.Blocks['RFID'] = {
         }
 
       ],
+
 
       "inputsInline":true,
       "output":"String",
