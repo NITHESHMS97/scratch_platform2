@@ -6,7 +6,7 @@
 		msg1="xx";
 		msg2="";
 		msg3="";
-		
+		var endblockf=0;
 
 	</script>
 	<!-- Latest compiled and minified CSS -->
@@ -72,8 +72,7 @@
 		</category>
 		<category name="Special Accessories" colour="180">
 			<block type="Dot_Matrix"></block>
-			<block type="MP3"></block>
-
+			<block type="MP3"></block> 
 		</category>		
 		<category name="Value/Logic" colour="240">
 			<block type="value"></block>
@@ -86,6 +85,9 @@
 		<category name="Decision" colour="300">
 			<block type="if_do"></block>
 			<block type="logic_compare"></block>
+			<block type="RFID"></block>
+			<block type="ultrasonic"></block>
+			<block type="4in1"></block>
 		</category>
 		<category name="Loop" colour="340">
 		<block type="repeat"></block>
@@ -109,7 +111,7 @@
 		<ul class="nav navbar-nav navbar-right">
 				<img src="img/save_button.png"  onclick="savef()" class="img-rounded"  alt="Cinque Terre">
 		<!--		<input  type="file"  name="loadfile" id="loadfile" style="display: inline;" /> -->
-			<form action="http://127.0.0.1:3000" method="POST" style="display:inline">
+			<form action="http://127.0.0.1:3000" method="POST" style="display:inline" onsubmit="checkend(event)">
 				<input type="hidden" id="text" name="code"/>
 				<input  type="image" src="img/18.png" style="width:35px; height:35px" name="submit"/>
 
@@ -124,6 +126,20 @@
 </body>
 
 <script>
+
+
+
+
+	function checkend()
+	{
+		if(endblockf==0)
+		{
+			alert("End block missing!!!");
+			event.preventDefault();
+		}
+			
+		endblockf=0;
+	} 
 /* refer this to understand
 https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascript-filereader.html
 */

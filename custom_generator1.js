@@ -115,15 +115,39 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var value1;
 		var value2;
 		var portval;
-		var port=conditionBlock.getFieldValue('PORT');
-		var operator=conditionBlock.getFieldValue('OP');
-/*		if(port=="A1")
-			portval="1,";
-		else if(port=="A2")
-			portval="2,";*/
-//		conditionBlock.getField("VAL2").setVisible(false);
-		portval=ports.indexOf(port)+1;
+		if(conditionBlock.type=="RFID")
+		{
+			portval=50;
+		}
+		else if(conditionBlock.type=="ultrasonic")
+		{
+			var port=conditionBlock.getFieldValue('PORT');
+			if(port=='F')
+				portval=45;
+			else if(port=='G')
+				portval=46;
+		}
+		else if(conditionBlock.type=="4in1")
+		{
+			var sensor=conditionBlock.getFieldValue('PORT');
+			if(sensor=='Red')
+				portval=69;
+			else if(sensor=='Green')
+				portval=70;
+			else if(sensor=='Blue')
+				portval=71;
+			else if(sensor=='Distance')
+				portval=73;
+			else if(sensor=='Gesture')
+				portval=74;
+		}
+		else
+		{
+			var port=conditionBlock.getFieldValue('PORT');
+			portval=ports.indexOf(port)+1;
+		}
 		
+		var operator=conditionBlock.getFieldValue('OP');		
 		var value1=conditionBlock.getFieldValue("VAL1");
 		var value2=0;
 		if(operator=="<>")
@@ -132,7 +156,6 @@ Blockly.JavaScript['if_do']=function(blocks)
 			value2=conditionBlock.getFieldValue("VAL2");
 			if(value2<value1)
 			{
-//				conditionBlock.getField("VAL2").setValue(value1);
 				var temp=value2;
 				var value2=value1;
 				var value1=temp;
@@ -141,13 +164,10 @@ Blockly.JavaScript['if_do']=function(blocks)
 		}
 		var value1byte=generateByteformat(value1);
 		var value2byte=generateByteformat(value2);
-//		alert(value2byte)
 		var opascii=operator.charCodeAt().toString();
 		code="d,";
 		code+=value2byte+portval.toString()+","+value1byte+opascii+",";
 		children=blocks.getChildren(false);
-		//if(children[0])
-		//	child += Blockly.JavaScript.blockToCode(children[0]);
 
 		if(children[1])
 		{
@@ -177,8 +197,6 @@ Blockly.JavaScript['if_do']=function(blocks)
 			}
 //			console.log(code+child+"0ED");
 		}
-//			ifucan.innerHTML = children[1].type;
-//			= children[1].getNextBlock().type;
 	}
 	return code+child+"0,E,D,";
 
@@ -194,6 +212,18 @@ Blockly.JavaScript['logic']=function(block)
 Blockly.JavaScript['logic_compare']=function(block)
 {
 	return "log_compare_block";
+}
+Blockly.JavaScript['4in1']=function(block)
+{
+	return "4in1";
+}
+Blockly.JavaScript['ultrasonic']=function(block)
+{
+	return "ultrasonic";
+}
+Blockly.JavaScript['RFID']=function(block)
+{
+	return "RFID";
 }
 Blockly.JavaScript['repeat']=function(block)
 {
@@ -238,6 +268,7 @@ Blockly.JavaScript['repeat']=function(block)
 
 Blockly.JavaScript['start']=function(block)
 {
+	var endflag=0;
 	var code="";
 	var isOutputOpen=false;
 	var children=block.getChildren()
@@ -328,11 +359,31 @@ Blockly.JavaScript['start']=function(block)
 				var conditionblock=nextBlock.getInputTargetBlock('CONDITION') ;
 				if(conditionblock)
 				{
-					var if_port=conditionblock.getFieldValue('PORT');
-					var if_device=conditionblock.getFieldValue('DEV');
-					var iftype=portsDev[if_port][if_device];
-				//	alert(iftype);
-					output[8+ports.indexOf(if_port)]=f(iftype);	
+					if(conditionblock.type=='RFID')
+					{
+						output[14]=f('R');
+					}
+					if(conditionblock.type=='ultrasonic')
+					{
+						var port=conditionblock.getFieldValue('PORT');
+						if(port=='F')
+							output[30]=f('U');
+						else if(port=='G')
+							output[34]=f('U');	
+						
+					}
+					else if(conditionblock.type=='4in1')
+					{
+						output[34]=f('G');
+					}
+					else if(ports.includes(conditionblock.type))
+					{
+						var if_port=conditionblock.getFieldValue('PORT');
+						var if_device=conditionblock.getFieldValue('DEV');
+						var iftype=portsDev[if_port][if_device];
+						output[8+ports.indexOf(if_port)]=f(iftype);	
+					}
+
 				}
 				var ifchild=nextBlock.getChildren();
 				if(ifchild[1])
@@ -366,7 +417,7 @@ Blockly.JavaScript['start']=function(block)
 			}
 			else if(nextBlock.type=="end")
 			{
-			
+				endblockf=1;
 				break;
 			}
 
@@ -402,6 +453,7 @@ Blockly.JavaScript['start']=function(block)
 	out=output;
 //	p1.innerHTML=JSON.stringify(output);
 	text.value=JSON.stringify(output);
+	
 	return code;
 
 }

@@ -1,4 +1,130 @@
+Blockly.Blocks['RFID'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": ' B RFID %1 %2 %3',
+      "args0": [
+        
+        {
+          "type":"field_dropdown",
+          "name":"OP",
+          "options":[
+            ["<>","<>"],
+            ["=","="],
+            [">",">"],
+            ["<","<"],
+            ["!=","!="]
+            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"VAL1"
+        },
+        {
+          "type":"field_number",
+          "name":"VAL2",
+          "visible_":true
+        }
 
+      ],
+
+      "inputsInline":true,
+      "output":"String",
+      "colour": 160
+    });
+  }
+};
+Blockly.Blocks['ultrasonic'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": '%1 ultrasonic %2 %3 %4',
+      "args0": [
+        
+        {
+          "type":"field_dropdown",
+          "name":"PORT",
+          "options":[
+            ["F","F"],
+            ["G","G"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"OP",
+          "options":[
+            ["<>","<>"],
+            ["=","="],
+            [">",">"],
+            ["<","<"],
+            ["!=","!="]
+            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"VAL1"
+        },
+        {
+          "type":"field_number",
+          "name":"VAL2",
+          "visible_":true
+        }
+
+      ],
+
+      "inputsInline":true,
+      "output":"String",
+      "colour": 160
+    });
+  }
+};
+Blockly.Blocks['4in1'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": ' G 4 in 1: %1 %2 %3 %4',
+      "args0": [
+        
+        {
+          "type":"field_dropdown",
+          "name":"PORT",
+          "options":[
+            ["Red","Red"],
+            ["Blue","Blue"],
+            ["Green","Green"],
+            ["Distance","Distance"],
+            ["Gesture","Gesture"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"OP",
+          "options":[
+            ["<>","<>"],
+            ["=","="],
+            [">",">"],
+            ["<","<"],
+            ["!=","!="]
+            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"VAL1"
+        },
+        {
+          "type":"field_number",
+          "name":"VAL2",
+          "visible_":true
+        }
+
+      ],
+
+      "inputsInline":true,
+      "output":"String",
+      "colour": 160
+    });
+  }
+};
 Blockly.Blocks['MP3'] = {
   init: function() {
     this.jsonInit({
