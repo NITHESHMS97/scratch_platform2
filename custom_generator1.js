@@ -31,6 +31,43 @@ function f(x)
 {
 	return x.charCodeAt();
 }
+
+Blockly.JavaScript['IOT']=function(block)
+{
+	var cnt=block.getFieldValue('Bic');	
+	var port=block.getFieldValue('PORT');
+	var value=block.getFieldValue('Value');
+	var portval=64;
+	portval+=parseInt(cnt);
+	if(port!="0" && value!="0")
+	{
+		value=0;
+		alert("Value can be set for value filed only");
+		block.getField("Value").setValue(0);
+	}	
+	var val=generateByteformat(parseInt(value));
+	var code=portval.toString()+","+val+port+",";
+//	console.log(code);
+	return code;
+}
+Blockly.JavaScript['BiData']=function(block)
+{
+	var cnt=block.getFieldValue('Bic');	
+	var port=block.getFieldValue('PORT');
+	var value=block.getFieldValue('Value');
+	var portval=55;
+	portval+=parseInt(cnt);
+	if(port!="0" && value!="0")
+	{
+		value=0;
+		alert("Value can be set for value filed only");
+		block.getField("Value").setValue(0);
+	}	
+	var val=generateByteformat(parseInt(value));
+	var code=portval.toString()+","+val+port+",";
+//	console.log(code);
+	return code;
+}
 Blockly.JavaScript['BiFlag']=function(block)
 {
 	var cnt=block.getFieldValue('Bic');
@@ -305,7 +342,7 @@ Blockly.JavaScript['repeat']=function(block)
 
 Blockly.JavaScript['start']=function(block)
 {
-	var endflag=0;
+	endblockf=0;
 	var code="";
 	var isOutputOpen=false;
 	var children=block.getChildren()
@@ -398,9 +435,10 @@ Blockly.JavaScript['start']=function(block)
 				{
 					if(conditionblock.type=='RFID')
 					{
+						
 						output[14]=f('R');
 					}
-					if(conditionblock.type=='ultrasonic')
+					else if(conditionblock.type=='ultrasonic')
 					{
 						var port=conditionblock.getFieldValue('PORT');
 						if(port=='F')
@@ -413,7 +451,7 @@ Blockly.JavaScript['start']=function(block)
 					{
 						output[34]=f('G');
 					}
-					else if(ports.includes(conditionblock.type))
+					else 
 					{
 						var if_port=conditionblock.getFieldValue('PORT');
 						var if_device=conditionblock.getFieldValue('DEV');

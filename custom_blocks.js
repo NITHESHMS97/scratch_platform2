@@ -1,3 +1,153 @@
+
+Blockly.Blocks['IOT'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'BiIOT %1 equals to %2 %3',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"Bic",
+          "options":[
+            ["1","1"],
+            ["2","2"],
+            ["3","3"],
+            ["4","4"],
+            ["5","5"],
+            ["6","6"],
+            ["7","7"],
+            ["8","8"],
+            ["9","9"],
+            ["10","10"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"PORT",
+          "options":[
+            ["value","0"],
+            ["A1","1"],
+            ["A2","2"],
+            ["A3","3"],
+            ["A4","4"],
+            ["B1","7"],
+            ["B2","8"],
+            ["B3","9"],
+            ["B4","10"],
+            ["C1","11"],
+            ["C2","12"],
+            ["C3","13"],
+            ["C4","14"],
+            ["F1","23"],
+            ["F2","24"],
+            ["F3","25"],
+            ["F4","26"],
+            ["G1","27"],
+            ["G2","28"],
+            ["G3","29"],
+            ["G4","30"],
+            ["M1","31"],
+            ["M2","32"],
+            ["BiCounter1","37"],
+            ["BiCounter2","38"],
+            ["BiCounter3","39"],
+            ["BiFlag1","40"],
+            ["BiFlag2","41"],
+            ["BiFlag3","42"],
+            ["BiData1","43"],
+            ["BiData2","44"],
+            ["BiData3","45"],
+            ["Ble_Remote","46"],
+            ["Bt_Slider","47"],
+            ["Red","69"],
+            ["Green","70"],
+            ["Blue","71"],
+            ["Proximity","73"],
+            ["Gesture","74"]
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"Value"
+        }
+      ],
+
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120
+    });
+  }
+};
+Blockly.Blocks['BiData'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'BiData %1 equals to %2 %3',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"Bic",
+          "options":[
+            ["1","1"],
+            ["2","2"],
+            ["3","3"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"PORT",
+          "options":[
+            ["value","0"],
+            ["A1","1"],
+            ["A2","2"],
+            ["A3","3"],
+            ["A4","4"],
+            ["B1","7"],
+            ["B2","8"],
+            ["B3","9"],
+            ["B4","10"],
+            ["C1","11"],
+            ["C2","12"],
+            ["C3","13"],
+            ["C4","14"],
+            ["F1","23"],
+            ["F2","24"],
+            ["F3","25"],
+            ["F4","26"],
+            ["G1","27"],
+            ["G2","28"],
+            ["G3","29"],
+            ["G4","30"],
+            ["M1","31"],
+            ["M2","32"],
+            ["BiCounter1","37"],
+            ["BiCounter2","38"],
+            ["BiCounter3","39"],
+            ["BiFlag1","40"],
+            ["BiFlag2","41"],
+            ["BiFlag3","42"],
+            ["BiData1","43"],
+            ["BiData2","44"],
+            ["BiData3","45"],
+            ["Ble_Remote","46"],
+            ["Bt_Slider","47"],
+            ["Red","69"],
+            ["Green","70"],
+            ["Blue","71"],
+            ["Proximity","73"],
+            ["Gesture","74"]
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"Value"
+        }
+      ],
+
+      "previousStatement": null,
+      "nextStatement": null,
+      "colour": 120
+    });
+  }
+};
 Blockly.Blocks['BiFlag'] = {
   init: function() {
     this.jsonInit({
@@ -67,6 +217,52 @@ Blockly.Blocks['BiCounter'] = {
       "previousStatement": null,
       "nextStatement": null,
       "colour": 120
+    });
+  }
+};
+Blockly.Blocks['BiCounterI'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": '%1 %2 %3 %4 %5',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"",
+          "options":[
+            ["BiCounter","BiCounter"],
+            ["BiFlag","BiFlag"],
+            ["BiData","BiData"],
+            ["IOT","IOT"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"OP",
+          "options":[
+            ["<>","<>"],
+            ["=","="],
+            [">",">"],
+            ["<","<"],
+            ["!=","!="]
+            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"VAL1"
+        },
+        {
+          "type":"field_number",
+          "name":"VAL2",
+          "visible_":true
+        }
+
+      ],
+
+
+      "inputsInline":true,
+      "output":"String",
+      "colour": 160
     });
   }
 };
@@ -266,7 +462,7 @@ Blockly.Blocks['value']={
         [
           {
             "type":"field_number",
-            "name":"VALUE",
+            "name":"VAL",
             "value":100
           }
         ],

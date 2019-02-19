@@ -30,6 +30,7 @@ function code_generator(portname,logic_input)
 				first16=first16>>8;
 				code+=first16.toString()+",";
 				code+=last16.toString()+",";
+				
 			}
 			
 		}
