@@ -213,6 +213,28 @@ Blockly.JavaScript['if_do']=function(blocks)
 			else if(sensor=='Gesture')
 				portval=74;
 		}
+		else if(conditionBlock.type=="Bivariable")
+		{
+			var variable=conditionBlock.getFieldValue('variable');
+			var cnt=conditionBlock.getFieldValue('cnt');
+			var portval;
+			if(variable=='BiCounter')
+				portval=30;
+			else if(variable=="BiFlag")
+				portval=34;
+			else if(variable=="BiData")
+				portval=41;
+			
+			portval+=parseInt(cnt);
+
+		}
+		else if(conditionBlock.type=="IOTinput")
+		{
+			var cnt=conditionBlock.getFieldValue('cnt');
+			var portval=52;			
+			portval+=parseInt(cnt);
+
+		}
 		else
 		{
 			var port=conditionBlock.getFieldValue('PORT');
@@ -296,6 +318,14 @@ Blockly.JavaScript['ultrasonic']=function(block)
 Blockly.JavaScript['RFID']=function(block)
 {
 	return "RFID";
+}
+Blockly.JavaScript['Bivariable']=function(block)
+{
+	return "Bivaraible";
+}
+Blockly.JavaScript['IOTinput']=function(block)
+{
+	return "IOTinput";
 }
 Blockly.JavaScript['repeat']=function(block)
 {
@@ -433,6 +463,7 @@ Blockly.JavaScript['start']=function(block)
 				var conditionblock=nextBlock.getInputTargetBlock('CONDITION') ;
 				if(conditionblock)
 				{
+					
 					if(conditionblock.type=='RFID')
 					{
 						
@@ -450,6 +481,11 @@ Blockly.JavaScript['start']=function(block)
 					else if(conditionblock.type=='4in1')
 					{
 						output[34]=f('G');
+					}
+					else if(conditionblock.type=='Bivariable' || conditionblock.type=='IOTinput')
+					{
+						
+						//for future changes 
 					}
 					else 
 					{

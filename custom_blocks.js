@@ -220,19 +220,79 @@ Blockly.Blocks['BiCounter'] = {
     });
   }
 };
-Blockly.Blocks['BiCounterI'] = {
+Blockly.Blocks['IOTinput'] = {
+  init: function() {
+    this.jsonInit({
+      "message0": 'IOT %1 %2 %3 %4',
+      "args0": [
+        {
+          "type":"field_dropdown",
+          "name":"cnt",
+          "options":[
+            ["1","1"],
+            ["2","2"],
+            ["3","3"],
+            ["4","4"],
+            ["5","5"],
+            ["6","6"],
+            ["7","7"],
+            ["8","8"],
+            ["9","9"],
+            ["10","10"]
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"OP",
+          "options":[
+            ["<>","<>"],
+            ["=","="],
+            [">",">"],
+            ["<","<"],
+            ["!=","!="]
+            
+          ]
+        },
+        {
+          "type":"field_number",
+          "name":"VAL1"
+        },
+        {
+          "type":"field_number",
+          "name":"VAL2",
+          "visible_":true
+        }
+
+      ],
+
+
+      "inputsInline":true,
+      "output":"String",
+      "colour": 160
+    });
+  }
+};
+Blockly.Blocks['Bivariable'] = {
   init: function() {
     this.jsonInit({
       "message0": '%1 %2 %3 %4 %5',
       "args0": [
         {
           "type":"field_dropdown",
-          "name":"",
+          "name":"variable",
           "options":[
             ["BiCounter","BiCounter"],
             ["BiFlag","BiFlag"],
-            ["BiData","BiData"],
-            ["IOT","IOT"]
+            ["BiData","BiData"] 
+          ]
+        },
+        {
+          "type":"field_dropdown",
+          "name":"cnt",
+          "options":[
+            ["1","1"],
+            ["2","2"],
+            ["3","3"]
           ]
         },
         {
