@@ -182,7 +182,7 @@ Blockly.Blocks['BiFlag'] = {
 Blockly.Blocks['BiCounter'] = {
   init: function() {
     this.jsonInit({
-      "message0": 'BiCounter %1 intial value: %2',
+      "message0": 'BiCounter %1 %2intial value: %3',
       "args0": [
         {
           "type":"field_dropdown",
@@ -193,6 +193,11 @@ Blockly.Blocks['BiCounter'] = {
             ["3","3"]
             
           ]
+        },
+        {
+          "type": "field_checkbox",
+          "name": "checkbox",
+          "checked": true  
         },
         {
           "type":"field_number",

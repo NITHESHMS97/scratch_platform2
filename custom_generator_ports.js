@@ -15,10 +15,17 @@ function code_generator(portname,logic_input)
 			block.getInput('VALUE').setCheck('Number');
 			
 		}	
+		
 		var code=(ports.indexOf(portname)+1).toString()+",";
 		if(targetBlock)
 		{
 			var value=targetBlock.getFieldValue('VAL');
+			if(device=="servo motor")
+			{
+				value=parseInt(value);
+				value=1800+value*20;
+			//	console.log(value);
+			}
 			if(value=='HIGH')
 				code+="0,1,";
 			else if(value=='LOW')

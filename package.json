@@ -2,7 +2,8 @@
   "name": "blockly2",
   "version": "1.0.0",
   "description": "",
-  "main": "blockly_compressed.js",
+  "main": "main.js",
+  "bin":"main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

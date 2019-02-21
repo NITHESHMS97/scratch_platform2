@@ -1,4 +1,5 @@
-
+var special_accessories=["MP3","Dot_Matrix"]
+var variable=["BiCounter","BiFlag","BiData","BiIOT"]
 function generateByteformat(value)
 {
 	var firstbyte="";
@@ -87,6 +88,7 @@ Blockly.JavaScript['BiCounter']=function(block)
 	var init=block.getFieldValue('INIT');
 	var direct=block.getFieldValue('direction');
 	var value=block.getFieldValue('VALUE');
+	var check=block.getFieldValue('checkbox');
 	var code;
 	var initval=generateByteformat(parseInt(init));
 	var val=generateByteformat(parseInt(value));
@@ -96,7 +98,7 @@ Blockly.JavaScript['BiCounter']=function(block)
 	else 
 		portval=37;
 	portval=portval+parseInt(cnt);
-	if(init!=0)
+	if(check=="TRUE")
 		code="50,"+initval+portval+","+val;
 	else
 		code=portval+","+val;
@@ -215,14 +217,14 @@ Blockly.JavaScript['if_do']=function(blocks)
 		}
 		else if(conditionBlock.type=="Bivariable")
 		{
-			var variable=conditionBlock.getFieldValue('variable');
+			var vari=conditionBlock.getFieldValue('variable');
 			var cnt=conditionBlock.getFieldValue('cnt');
 			var portval;
-			if(variable=='BiCounter')
+			if(vari=='BiCounter')
 				portval=30;
-			else if(variable=="BiFlag")
+			else if(vari=="BiFlag")
 				portval=34;
-			else if(variable=="BiData")
+			else if(vari=="BiData")
 				portval=41;
 			
 			portval+=parseInt(cnt);
@@ -261,17 +263,25 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var opascii=operator.charCodeAt().toString();
 		code="d,";
 		code+=value2byte+portval.toString()+","+value1byte+opascii+",";
-		children=blocks.getChildren(false);
-
+		var children=blocks.getChildren(true);
+		
 		if(children[1])
 		{
-
+			var special_accessories1=["MP3","Dot_Matrix"]
+			var variable1=["BiCounter","BiFlag","BiData","BiIOT"]
 			//child += Blockly.JavaScript.blockToCode(children[1]);
 			var nextBlock=children[1];
 			while(nextBlock)
 			{
-//				console.log(nextBlock.type);
-			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			
+			
+				//alert(variable.includes(nextBlock.type));
+				
+				if(nextBlock.type=='end')
+				{
+					
+				}
+			 	else if( (ports.includes(nextBlock.type)|| special_accessories1.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 				{
 					child+="o,{,";
 					isOutputOpen=true;
