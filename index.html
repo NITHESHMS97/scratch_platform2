@@ -104,9 +104,28 @@
 		</category>
 
 	</xml>
-	<xml id="toolbox1"  style="display: none">
-		<block type="wait"></block>
-	</xml>
+
+<style>
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+.fileUpload input.upload {
+	display: inline;
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+</style>
+
 </head>
 
 <body>
@@ -121,8 +140,12 @@
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 				<img src="img/save_button.png"  onclick="savef()" class="img-rounded"  alt="Cinque Terre">
-				<input  type="file"  name="loadfile" id="loadfile" style="display: inline;" /> 
-			<form action="/" method="POST" style="display:inline" onsubmit="checkend()">
+				<!--<input  type="file"  name="loadfile" id="loadfile" style="display: inline;" /> -->
+				<div class="fileUpload btn btn-primary">
+					<span>Upload</span>
+					<input type="file" class="upload" />
+				</div>
+			<form action="/" method="POST" style="display:inline" onsubmit="checkend(event)">
 				<input type="hidden" id="text" name="code"/>
 				<input  type="submit" src="img/18.png" style="width:35px; height:35px" name="submit"/>
 			</form>
