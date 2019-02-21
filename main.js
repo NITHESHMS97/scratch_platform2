@@ -48,6 +48,8 @@ function senddata(code)
 
   })
 }
+
+
 app.post('/',urlencode,function(req,res)
 {
   console.log(req.body.code);
@@ -56,6 +58,29 @@ app.post('/',urlencode,function(req,res)
   {
     console.log(i+" "+code[i]+" "+a[i])
   }
+/* XYZ */
+var x = 0;
+serialport.list(function(err,ports)
+{
+  x = 0;
+  ports.forEach(function(port)
+  {
+    if(port.vendorId=="10C4")
+    {
+  //    console.log(port.comName);
+      comport=port.comName;
+      console.log(comport);
+      myPort =new serialport(comport,9600)
+		x = 1
+    }
+
+	  else if(x != 1){
+		  x = 0	
+	  }
+  });
+});
+
+if(x == 1) {
   myPort.write(code,function(err)
     {
       if(err)
@@ -67,12 +92,17 @@ app.post('/',urlencode,function(req,res)
         console.log("good");
       }
     });  
+}
+
+else {
+	console.log("INSERT USB DEVICE");
+}
 //  senddata(code);
 });
 console.log(code);
 //senddata(code);
 
 //opener("http://localhost:3000");
-app.listen(3000,()=>console.log("3000"));
+app.listen(2000,()=>console.log("3000"));
 
 

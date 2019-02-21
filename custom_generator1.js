@@ -215,14 +215,14 @@ Blockly.JavaScript['if_do']=function(blocks)
 		}
 		else if(conditionBlock.type=="Bivariable")
 		{
-			var variable=conditionBlock.getFieldValue('variable');
+			var var_bi=conditionBlock.getFieldValue('variable');
 			var cnt=conditionBlock.getFieldValue('cnt');
 			var portval;
-			if(variable=='BiCounter')
+			if(var_bi=='BiCounter')
 				portval=30;
-			else if(variable=="BiFlag")
+			else if(var_bi=="BiFlag")
 				portval=34;
-			else if(variable=="BiData")
+			else if(var_bi=="BiData")
 				portval=41;
 			
 			portval+=parseInt(cnt);
@@ -261,7 +261,8 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var opascii=operator.charCodeAt().toString();
 		code="d,";
 		code+=value2byte+portval.toString()+","+value1byte+opascii+",";
-		children=blocks.getChildren(false);
+		children=blocks.getChildren(true);
+
 
 		if(children[1])
 		{
@@ -271,12 +272,12 @@ Blockly.JavaScript['if_do']=function(blocks)
 			while(nextBlock)
 			{
 //				console.log(nextBlock.type);
-			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) || var_Bi.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 				{
 					child+="o,{,";
 					isOutputOpen=true;
 				}
-				else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| variable.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
+				else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| var_Bi.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
 				{
 					child+="},";
 					isOutputOpen=false;
@@ -341,12 +342,12 @@ Blockly.JavaScript['repeat']=function(block)
 		var nextBlock = children[0];
 		while(nextBlock){
 			//console.log(nextBlock.type);
-			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||var_Bi.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 			{
 				child += "o,{,";
 				isOutputOpen = true;
 			}
-			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| variable.includes(nextBlock.type))&& isOutputOpen)
+			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| var_Bi.includes(nextBlock.type))&& isOutputOpen)
 			{
 
 					isOutputOpen = false;
@@ -394,7 +395,7 @@ Blockly.JavaScript['start']=function(block)
 		var nextBlock=children[0];
 		while(nextBlock)
 		{
-			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) ||variable.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
+			if( (ports.includes(nextBlock.type)|| special_accessories.includes(nextBlock.type) || var_Bi.includes(nextBlock.type))/*nextBlock.type.includes('A')*/ && !isOutputOpen)
 			{
 				code+="o,{,";
 //				output.push(f('o'),f('{'));
@@ -402,7 +403,7 @@ Blockly.JavaScript['start']=function(block)
 
 				isOutputOpen=true;
 			}
-			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| variable.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
+			else if(!(ports.includes(nextBlock.type) || special_accessories.includes(nextBlock.type)|| var_Bi.includes(nextBlock.type))/*!nextBlock.type.includes('A')*/ && isOutputOpen)
 			{
 				isOutputOpen=false;
 				code+="},";
