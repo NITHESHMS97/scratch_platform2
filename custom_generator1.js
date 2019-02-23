@@ -200,6 +200,7 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var value1;
 		var value2;
 		var portval;
+// port value in d_ _ portval _ _ is handled here
 		if(conditionBlock.type=="RFID")
 		{
 			portval=50;
@@ -259,7 +260,7 @@ Blockly.JavaScript['if_do']=function(blocks)
 		var value2=0;
 		if(operator=="<>")
 		{
-
+//for <> 2 values must be taken. This is handled here
 			value2=conditionBlock.getFieldValue("VAL2");
 			if(value2<value1)
 			{
@@ -284,9 +285,7 @@ Blockly.JavaScript['if_do']=function(blocks)
 			var nextBlock=children[1];
 			while(nextBlock)
 			{
-			
-			
-				//alert(variable.includes(nextBlock.type));
+// this block is used to generate the code of subblocks			
 				
 				if(nextBlock.type=='end')
 				{
@@ -410,7 +409,9 @@ Blockly.JavaScript['start']=function(block)
 	var output=new Array();
 	var index=8;
 	portskey=Object.keys(ports);
+	/** initial setting */
 	output.push(f("R"),f("T"),f("5"),1,1,f("S"),f("E"),f("T"));
+	/** settings first default set to O and then later changed as below */
 	for (var i=0;i<33;i++)
 	{
 		output.push(f("O"));
@@ -419,7 +420,7 @@ Blockly.JavaScript['start']=function(block)
 	{
 		output.push(0);
 	}
-	
+	/** code of each block is generated here */
 	if(children[0])
 	{
 		var nextBlock=children[0];
@@ -439,9 +440,10 @@ Blockly.JavaScript['start']=function(block)
 				code+="},";
 //				output.push(f('}'));
 			}
-			
+//FINAL CODE			
 			code+=Blockly.JavaScript[nextBlock.type](nextBlock)
-			
+//SETTING STARTS HERE
+//setting for ports --------Ports array from port_dict is used here
 			if(ports.includes(nextBlock.type))
 			{
 				var device=nextBlock.getFieldValue('CONNECT');
@@ -449,6 +451,7 @@ Blockly.JavaScript['start']=function(block)
 				var type=portsDev[port][device];
 				output[8+ports.indexOf(port)]=f(type);
 			}
+// setting for special blocks
 			else if(special_accessories.includes(nextBlock.type))
 			{
 				if(nextBlock.type=='MP3')
@@ -456,7 +459,7 @@ Blockly.JavaScript['start']=function(block)
 			}
 			else if(nextBlock.type=='repeat')
 			{
-				
+//this block handle setting of subblocks of all the blocks connected to repeat	
 				var repeatchild=nextBlock.getChildren();
 				if(repeatchild[0])
 				{
@@ -491,6 +494,7 @@ Blockly.JavaScript['start']=function(block)
 			} 
 			else if(nextBlock.type=="if_do")
 			{
+//this block handle setting of subblocks of all the blocks connected to if block
 				var conditionblock=nextBlock.getInputTargetBlock('CONDITION') ;
 				if(conditionblock)
 				{
@@ -574,6 +578,7 @@ Blockly.JavaScript['start']=function(block)
 
 	}
 //	console.log(code)/*
+//FINALLY CODE IS STORED IN OUTPUT ARRAY 
 	var temp=new Array();
 	temp=code.split(",");
 	for(var i=0;i<temp.length;i++)
@@ -583,6 +588,7 @@ Blockly.JavaScript['start']=function(block)
 		else	
 			output.push(parseInt(temp[i]));
 	}
+//SYSTEM TIME IS ADDED HERE
 	var today=new Date();
 	output[64]='t'.charCodeAt();
 	output[65]=today.getHours();
@@ -591,9 +597,10 @@ Blockly.JavaScript['start']=function(block)
 
 //	output.concat(temp);
 	msg1="yy";
-	console.log(output);
+//	console.log(output);
 	out=output;
-//	p1.innerHTML=JSON.stringify(output);
+//OUTPUT IS SENT TO HIDDEN input type in submit form (index.js)
+//text is the id of hidden input type(index.js)
 	text.value=JSON.stringify(output);
 	
 	return code;

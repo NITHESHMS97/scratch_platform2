@@ -22,6 +22,7 @@ serialport.list(function(err,ports)
 {
   ports.forEach(function(port)
   {
+    //vendor Id is specified here
     if(port.vendorId=="10C4")
     {
   //    console.log(port.comName);
@@ -31,7 +32,7 @@ serialport.list(function(err,ports)
     }
   });
 });
-
+/** the code in myPort.write(code,...) function is the one which writes to the device */
 
 /** handling submit request */
 app.post('/',urlencode,function(req,res)
@@ -39,7 +40,8 @@ app.post('/',urlencode,function(req,res)
   var response='';  
 //  console.log(req.body.code);
   code=JSON.parse(req.body.code);
-  var msg=["W".charCodeAt(),"H".charCodeAt(),"O".charCodeAt()]
+  /** msg is kept for further testing */
+  var msg=["R".charCodeAt(),"T".charCodeAt(),"5".charCodeAt()]
   if(myPort)
   {
         myPort.write(code ,function(err)

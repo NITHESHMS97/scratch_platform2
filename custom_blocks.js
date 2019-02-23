@@ -76,6 +76,7 @@ Blockly.Blocks['IOT'] = {
 
       "previousStatement": null,
       "nextStatement": null,
+/** CHANGE COLOUR HERE */
       "colour": 180
     });
   }

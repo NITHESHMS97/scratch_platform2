@@ -17,12 +17,15 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+<!-- thesw are the files  linked-->
+<!-- port_dict is dictionary in codegeneration for setting etc in start function-->
 	<script src="port_dict.js"></script>
+<!--next 4 links are from blockly api-->
 	<script src="blockly/blockly_compressed.js"></script>
 	<script src="blockly/blocks_compressed.js"></script>
 	<script src="blockly/javascript_compressed.js"></script>
 	<script src="blockly/msg/js/en.js"></script>
+<!--files created for genreation and defining-->
 	<script src="custom_generator_ports.js"></script>
 	<script src="custom_blocks_ports.js"></script>
 	<script src="custom_blocks.js" ></script>
@@ -102,7 +105,7 @@ it from the toolbox below. To add new b-->
 		</category>
 
 	</xml>
-
+<!-- these are the style element used for upload button-->
 <style>
 
 .fileUpload {
@@ -208,6 +211,8 @@ https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascri
 	/*save function saves the workspace in txt file 
 	whole workspace is converted into xml structure
 	Blob function is used to download the workspace(in xml structure) */
+	/* saved as txt file because blob is the function used to download the workspace(xml content) which downloads 
+	only in txt file format*/
 	function savef() 
 	{
 		filename = prompt("Please enter filename", "new1");
