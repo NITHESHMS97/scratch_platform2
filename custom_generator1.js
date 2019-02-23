@@ -1,5 +1,5 @@
-var special_accessories=["MP3","Dot_Matrix"]
-var variable=["BiCounter","BiFlag","BiData","BiIOT"]
+
+/** Function to generate two bytes of a value used for ports etc*/
 function generateByteformat(value)
 {
 	var firstbyte="";
@@ -27,12 +27,12 @@ function generateByteformat(value)
 	return firstbyte+","+lastbyte+",";
 }
 
-
+/** function to porvide ascii value of a charachter. A shortcut  */
 function f(x)
 {
 	return x.charCodeAt();
 }
-
+/**IOT block code generator  */
 Blockly.JavaScript['IOT']=function(block)
 {
 	var cnt=block.getFieldValue('Bic');	
@@ -51,6 +51,7 @@ Blockly.JavaScript['IOT']=function(block)
 //	console.log(code);
 	return code;
 }
+/**BiData codegenerator  */
 Blockly.JavaScript['BiData']=function(block)
 {
 	var cnt=block.getFieldValue('Bic');	
@@ -69,6 +70,7 @@ Blockly.JavaScript['BiData']=function(block)
 //	console.log(code);
 	return code;
 }
+/** BiFlag codegenerator  */
 Blockly.JavaScript['BiFlag']=function(block)
 {
 	var cnt=block.getFieldValue('Bic');
@@ -82,6 +84,7 @@ Blockly.JavaScript['BiFlag']=function(block)
 		code+="0,0,";
 	return code;
 }
+/** BiCounter code generator */
 Blockly.JavaScript['BiCounter']=function(block)
 {
 	var cnt=block.getFieldValue('Bic');
@@ -105,6 +108,7 @@ Blockly.JavaScript['BiCounter']=function(block)
 //	console.log(code);
 	return code;
 }
+/** MP3 codegenerator */
 Blockly.JavaScript['MP3']=function(block)
 {
 	var code='78,';
@@ -120,10 +124,12 @@ Blockly.JavaScript['MP3']=function(block)
 	mp3.innerHTML=code;
 	return code;
 }
+/** handy function to find minimum */
 function min(a,b)
 {
 	return a>b?b:a;
 }
+/** Dot matrix code generation */
 Blockly.JavaScript['Dot_Matrix']=function(block)
 {
 	var code="";
@@ -151,7 +157,7 @@ Blockly.JavaScript['Dot_Matrix']=function(block)
 	
 	return code;
 }
-
+/** wait code generation */
 Blockly.JavaScript['wait']=function(block)
 {
 	var hrs=block.getFieldValue('HRS');
@@ -176,7 +182,12 @@ Blockly.JavaScript['wait']=function(block)
 }
 
 
-
+/** if construct  */
+/** handles all condition block including the variable special accessories input devices*/
+/** in if conditon block is used to get the info from the respective condition block*/
+/** the sub blocks in the block is generated using the getchildren() function which is then iterated to 
+ * obtaion all the block code 
+ */
 Blockly.JavaScript['if_do']=function(blocks)
 {
 
@@ -305,6 +316,9 @@ Blockly.JavaScript['if_do']=function(blocks)
 	return code+child+"0,E,D,";
 
 }
+/** value logic and logic compare block these short function are not directly used to generate code 
+ * there are simply added to avoid unneccessary errors in console
+ */
 Blockly.JavaScript['value']=function(block)
 {
 	return "value";
@@ -337,6 +351,9 @@ Blockly.JavaScript['IOTinput']=function(block)
 {
 	return "IOTinput";
 }
+/**repeat block needs to get codes of all the subblock 
+ * which is done using getChildren() function and then iterating using nextblock() function
+ */
 Blockly.JavaScript['repeat']=function(block)
 {
 	var code="l";
@@ -379,7 +396,11 @@ Blockly.JavaScript['repeat']=function(block)
 	return code+",0,0,"+count.toString()+","+child+"0,E,L,";
 
 }
-
+/**start block handles all the setting 
+ * setting of port is handled by using ports array in port_dict file
+ * setting of special accessories are handled directly
+ * the code of all the blocks begining form the next block is generated using the getChildren() function
+ */
 Blockly.JavaScript['start']=function(block)
 {
 	endblockf=0;

@@ -1,11 +1,14 @@
-
+//list of all devices that can be added to the ports
 var devices=new Array();
 devices=[["LED","LED"],["laser","laser"],["beeper","beeper"],["DC motor","DC motor"],["Geared motor","Geared motor"],["servo motor","servo motor"],["7 segment","7 segment"],["Tact switch","Tact switch"],["Touch switch","Touch switch"],["Dual switch","Dual switch"],["Heartbeat","Heartbeat"],["Metal sensor","Metal sensor"],["Light sensor","Light sensor"],['Distance sensor','Distance sensor'],["Sound sensor","Sound sensor"],["Gas sensor","Gas sensor"],["Temperature senor","Temperature sensor"],["Humidity sensor","Humidity sensor"]]
 
-//var a3devices=devices.splice(6,1);
-//a3devices=a3devices.splice(3,2);
+/*single function to generate all ports
+parameter-- name of the port (ex A1,A2)
+devices that are availabel to that port*/
+
 function createPort(portname,devices)
 {
+  /* Defining the block with given portname */
   Blockly.Blocks[portname] = {
     init: function() {
       this.jsonInit({
@@ -31,7 +34,7 @@ function createPort(portname,devices)
     }
   };
 }
-
+/*calling the above function to create all the ports */
 a1devices=[["LED","LED"],["laser","laser"],["beeper","beeper"],["Tact switch","Tact switch"],["Touch switch","Touch switch"],["Dual switch","Dual switch"],["Heartbeat","Heartbeat"],["Metal sensor","Metal sensor"],["Light sensor","Light sensor"],['Distance sensor','Distance sensor'],["Sound sensor","Sound sensor"],["Gas sensor","Gas sensor"],["Temperature senor","Temperature sensor"],["Humidity sensor","Humidity sensor"]]
 createPort("A1",a1devices);
 

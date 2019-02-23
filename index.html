@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>i4</title>
+	<!--icon and title come here-->
+	<title>BiBox-Scratch</title>
+	<link rel="icon" type="image/ico" href="img/logo.png" />
 	<script >
-		msg1="xx";
-		msg2="";
-		msg3="";
 		var endblockf=0;
-
 	</script>
 	<!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -31,9 +29,9 @@
 	<script src="custom_blocks_ports.js" ></script>
 	<script src="custom_generator1.js"></script>
 	<script src="serialport.js"></script>
-
+<!-- toolbox showing all the blocks available to the user in the workspace. To remove any of the tool just remove
+it from the toolbox below. To add new b-->
 	<xml id="toolbox"  style="display: none">
-
 		<category name="Start/End" colour="200">
 			<block type="start"></block>
 			<block type="end"></block>
@@ -129,7 +127,7 @@
 </head>
 
 <body>
-	
+<!--created navigation bar using bootstrap classess-->
 	<nav class="navbar navbar-inverse" > 
 		<div class="container-fluid" >
 			<a class="navbar-brand" href="#">
@@ -138,31 +136,31 @@
 		<div class="navbar-header">
 		<a class="navbar-brand" style="color:whitesmoke" href="#">Bibox-Scratch</a>
 		</div>
+<!--save upload buttons comes here-->
 		<ul class="nav navbar-nav navbar-right">
 				<img src="img/save_button.png"  onclick="savef()" class="img-rounded"  alt="Cinque Terre">
-				<!--<input  type="file"  name="loadfile" id="loadfile" style="display: inline;" /> -->
 				<div class="fileUpload btn btn-primary">
 					<span>Upload</span>
-					<input type="file" class="upload" />
+					<input type="file" class="upload" id="loadfile" />
 				</div>
+<!-- submit button comes here-->
 			<form action="/" method="POST" style="display:inline" onsubmit="checkend(event)">
 				<input type="hidden" id="text" name="code"/>
-				<input  type="submit" src="img/18.png" style="width:35px; height:35px" name="submit"/>
+				<div class="fileUpload btn btn-primary">
+					<span>Submit</span>
+					<input type="submit" class="upload" />
+				</div>
 			</form>
 		</ul>
 	</div>
 	</nav>
+<!-- workspace is assigned to this div block-->
 	<div id="blocklyDiv" style="height:450px;width:100%;"></div>
-	<p id="mp3"></p>
-
-	
 </body>
 
 <script>
-
-
-
-
+/*function to show alert message when end block is missing. endblockf is a global var and used in start generator 
+function to display */
 	function checkend()
 	{
 		if(endblockf==0)
@@ -175,6 +173,7 @@
 /* refer this to understand
 https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascript-filereader.html
 */
+/*loada function allows to import txt as workspace*/
 	function loada(evt)
 	{
 		var f = evt.target.files[0]; 
@@ -205,6 +204,10 @@ https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascri
 </script>
 <script>
 	var filename;
+
+	/*save function saves the workspace in txt file 
+	whole workspace is converted into xml structure
+	Blob function is used to download the workspace(in xml structure) */
 	function savef() 
 	{
 		filename = prompt("Please enter filename", "new1");
@@ -217,41 +220,20 @@ https://www.htmlgoodies.com/beyond/javascript/read-text-files-using-the-javascri
 		anchor.href = (window.webkitURL || window.URL).createObjectURL(blob);
 		anchor.dataset.downloadurl = ['text/plain', anchor.download, anchor.href].join(':');
 		anchor.click();
-//		localStorage.setItem("blocklys.xml", xmlText);
 	}
-	
-	function loadf()
-	{
-		var xmlText;
-		if(filename)
-			xmlText = localStorage.getItem("savedblockly.xml");
-		if (xmlText)
-		{
-			Blockly.mainWorkspace.clear();
-			xmlDom = Blockly.Xml.textToDom(xmlText);
-			Blockly.Xml.domToWorkspace(Blockly.mainWorkspace, xmlDom);
-		}
-		for (var i = 0; i < localStorage.length; i++) 
-		{
-  			console.log(localStorage.key(i))
-		};
-	}
-
 </script>
 <script>
-
+/*creating the workspace the loading the toolbox*/
 	var workspace = Blockly.inject('blocklyDiv',
 	{toolbox: document.getElementById('toolbox')});
 </script>
 	<script>
-
+/*function to generate code each time there is change in workspace*/
 		function myUpdateFunction(event)
 		{
-			var code=Blockly.JavaScript.workspaceToCode(workspace);
-//			codehere.innerHTML=code;
-
-	
+			var code=Blockly.JavaScript.workspaceToCode(workspace);	
 		}
+/*event listener for making workspace listen to every change made*/
 		workspace.addChangeListener(myUpdateFunction);
 	</script>
 

@@ -1,4 +1,7 @@
-
+/*All the accessory blocks other than ports are generated here*/
+/*-------------*/
+/*Varaible output blocks-------------------------------------------------------------------------------*/
+/*code to generate IOT block with 2 dropdown*/  
 Blockly.Blocks['IOT'] = {
   init: function() {
     this.jsonInit({
@@ -73,10 +76,11 @@ Blockly.Blocks['IOT'] = {
 
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 120
+      "colour": 180
     });
   }
 };
+/**  BiData block */
 Blockly.Blocks['BiData'] = {
   init: function() {
     this.jsonInit({
@@ -144,10 +148,11 @@ Blockly.Blocks['BiData'] = {
 
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 120
+      "colour": 180
     });
   }
 };
+/*BiFlag block */
 Blockly.Blocks['BiFlag'] = {
   init: function() {
     this.jsonInit({
@@ -174,11 +179,11 @@ Blockly.Blocks['BiFlag'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 120
+      "colour": 180
     });
   }
 };
-
+/** BiCounter blocks*/
 Blockly.Blocks['BiCounter'] = {
   init: function() {
     this.jsonInit({
@@ -221,10 +226,13 @@ Blockly.Blocks['BiCounter'] = {
       ],
       "previousStatement": null,
       "nextStatement": null,
-      "colour": 120
+      "colour": 180
     });
   }
 };
+/** ------------------------------------------------------------------------------------ */
+/** Variable input blocks------------------------------------------------------------------------------- */
+/** IOT if condition blocks */
 Blockly.Blocks['IOTinput'] = {
   init: function() {
     this.jsonInit({
@@ -273,10 +281,11 @@ Blockly.Blocks['IOTinput'] = {
 
       "inputsInline":true,
       "output":"String",
-      "colour": 160
+      "colour": 300
     });
   }
 };
+/**BiCounter BiFlag BiData all together as Bivariable */
 Blockly.Blocks['Bivariable'] = {
   init: function() {
     this.jsonInit({
@@ -327,11 +336,13 @@ Blockly.Blocks['Bivariable'] = {
 
       "inputsInline":true,
       "output":"String",
-      "colour": 160
+      "colour": 300
     });
   }
 };
-
+/**-------------------------------------------------------------------------------------------------------- */
+/** Special accessories Input Devices ----------------------------------------------------------------------*/
+/** RFID  input special accessories */
 Blockly.Blocks['RFID'] = {
   init: function() {
     this.jsonInit({
@@ -365,10 +376,11 @@ Blockly.Blocks['RFID'] = {
 
       "inputsInline":true,
       "output":"String",
-      "colour": 160
+      "colour": 300
     });
   }
 };
+/** Ultrasonic special accessories input devices-------------------- */
 Blockly.Blocks['ultrasonic'] = {
   init: function() {
     this.jsonInit({
@@ -409,10 +421,11 @@ Blockly.Blocks['ultrasonic'] = {
 
       "inputsInline":true,
       "output":"String",
-      "colour": 160
+      "colour": 300
     });
   }
 };
+/** 4in1 special accessories input device  */
 Blockly.Blocks['4in1'] = {
   init: function() {
     this.jsonInit({
@@ -456,10 +469,12 @@ Blockly.Blocks['4in1'] = {
 
       "inputsInline":true,
       "output":"String",
-      "colour": 160
+      "colour": 300
     });
   }
 };
+/** special accessories output devices ----------------------------------------------------------------- */
+/** MP3 device */
 Blockly.Blocks['MP3'] = {
   init: function() {
     this.jsonInit({
@@ -473,11 +488,12 @@ Blockly.Blocks['MP3'] = {
       ],
       "nextStatement": "Action",
       "previousStatement":"Action",
-      "colour": 160,
+      "colour": 180,
       "tooltip": "MP3",
     });
   }
 };
+/** Dot Matrix  */
 Blockly.Blocks['Dot_Matrix'] = {
   init: function() {
     this.jsonInit({
@@ -491,12 +507,12 @@ Blockly.Blocks['Dot_Matrix'] = {
       ],
       "nextStatement": "Action",
       "previousStatement":"Action",
-      "colour": 160,
+      "colour": 180,
       "tooltip": "Dot Matrix",
     });
   }
 };
-
+/** Dot  matrix input Text   */
 Blockly.Blocks['matrix_input'] = {
   init: function() {
     this.jsonInit({
@@ -509,14 +525,15 @@ Blockly.Blocks['matrix_input'] = {
         }
       ],
        "output": "String",
-      "colour": 160,
+      "colour": 240,
       
       "tooltip": "Dot Matrix"
     });
   }
 };
-
-
+/**-------------------------------------------------------------------------------------------------------- */
+/** Value and logic---------------------------------------------------------------------------------------- */
+/** Value block  */
 Blockly.Blocks['value']={
   init: function(){
     this.jsonInit(
@@ -532,12 +549,12 @@ Blockly.Blocks['value']={
           }
         ],
         "output":"Number",
-        "colour":120
+        "colour":240
 
     });
   }
 }
-
+/** Logic Block*/
 Blockly.Blocks['logic'] = {
   init: function() {
     this.jsonInit({
@@ -550,30 +567,13 @@ Blockly.Blocks['logic'] = {
         },
       ],
       "output":"String",
-      "colour": 160
+      "colour": 240
     });
   }
 };
-
-Blockly.Blocks['string_length'] = {
-  init: function() {
-    this.jsonInit({
-      "message0": 'length of %1',
-      "args0": [
-        {
-          "type": "input_value",
-          "name": "VALUE",
-          "check": "String"
-        }
-      ],
-      "output": "Number",
-      "colour": 160,
-      "tooltip": "Returns number of letters in the provided text.",
-      "helpUrl": "http://www.w3schools.com/jsref/jsref_length_string.asp"
-    });
-  }
-};
-
+/**--------------------------------------------------------------------------------------------------------- */
+/** Wait --------------------------------------------------------------------------------------------------- */
+/** Wait block */
 Blockly.Blocks['wait']={
   init: function(){
     this.jsonInit(
@@ -618,12 +618,13 @@ Blockly.Blocks['wait']={
         ],
         "nextStatement": "Action",
         "previousStatement":"Action",
-        "colour":120
+        "colour":280
 
     });
   }
 }
-
+/**------------------------------------------------------------------------------------------------------- */
+/** If Block ----------------------------------------------------------------------------------------------*/
 Blockly.Blocks['if_do'] = {
   init: function() {
     this.jsonInit({
@@ -644,11 +645,11 @@ Blockly.Blocks['if_do'] = {
       ],
       "previousStatement":"Action",
       "nextStatement":"Action",
-      "colour": 160
+      "colour": 300
     });
   }
 };
-
+/**Compare block (block to be attached to if as condition block) */
 Blockly.Blocks['logic_compare'] = {
   init: function() {
     this.jsonInit({
@@ -737,12 +738,12 @@ Blockly.Blocks['logic_compare'] = {
 
       "inputsInline":true,
       "output":"String",
-      "colour": 160
+      "colour": 300
     });
   }
 };
-
-
+/**--------------------------------------------------------------------------------------------------------- */
+/**Repeat block ---------------------------------------------------------------------------------------------*/
 Blockly.Blocks['repeat'] = {
   init: function() {
     this.jsonInit({
@@ -763,12 +764,13 @@ Blockly.Blocks['repeat'] = {
       ],
       "previousStatement":"Action",
       "nextStatement":"Action",
-      "colour": 160
+      "colour": 340
 
     });
   }
 };
-
+/**======================================================================================================== */
+/**start block------------------------------------------------------------- */
 Blockly.Blocks['start'] = {
   init: function() {
     this.jsonInit({
@@ -779,8 +781,10 @@ Blockly.Blocks['start'] = {
     });
   }
 };
+/** This gives hat structure to the start block */
 Blockly.BlockSvg.START_HAT = true;
-
+/** End block----------------------------------------------------------------------------------------------- */
+/**The end block with repeat and end option */
 Blockly.Blocks['end'] = {
   init: function() {
     this.jsonInit({

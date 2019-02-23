@@ -1,9 +1,15 @@
+/** used to generate the o{} for selected blocks 
+ * theses arrays are used in start if_do and repeat block
+*/
 ports=["A1","A2","A3","A4","A5","A6","B1","B2","B3","B4","C1","C2","C3","C4","D1","D2","D3","D4","E1","E2","E3","E4","F1","F2","F3","F4","G1","G2","G3","G4","M1","M2","M3","M4"];
 var special_accessories=["MP3","Dot_Matrix"]
 var variable=["BiCounter","BiFlag","BiData","BiIOT"]
 binarydevices=["LED","laser","beeper"];
 Analogdevices=["Light sensor","Distance sensor","Sound sensor","Gas sensor",]
-
+/**
+ * used for settings in the inital part of byte streem
+ * used in start block
+ */
 portsDev={
 	"A1":
 	{
@@ -15,7 +21,7 @@ portsDev={
 		"Dual switch":"I",
 		"Heartbeat":"I",
 		"Metal sensor":"I",
-		"Light sensor":"A",
+		"Light sensor":"A", 
 		"Distance sensor":"A",
 		"Sound sensor":"A",
 		"Gas sensor":"A",

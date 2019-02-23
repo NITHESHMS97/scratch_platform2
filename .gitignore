@@ -1,3 +1,6 @@
 node_modules/
 package-lock.json
 bootstrap-4.3.0-dist
+blockly2-linux
+blockly2-macos
+blockly2-win.exe
